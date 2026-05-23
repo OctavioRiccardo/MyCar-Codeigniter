@@ -1,153 +1,61 @@
-# 🚗 MyCar - Sistema de Alquiler de Vehículos
+# CodeIgniter 4 Framework
 
-¡Bienvenido a **MyCar**, una aplicación web moderna y robusta para la gestión y alquiler de vehículos, desarrollada sobre el framework **CodeIgniter 4**! 
+## What is CodeIgniter?
 
-Este proyecto está diseñado para ofrecer una experiencia fluida tanto a los clientes que buscan rentar un automóvil como a los administradores que gestionan la flota y las reservas.
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
----
+This repository holds the distributable version of the framework.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-## 📋 Índice
-1. [Características Principales](#-características-principales)
-2. [Arquitectura y Tecnologías](#-arquitectura-y-tecnologías)
-3. [Requisitos del Sistema](#-requisitos-del-sistema)
-4. [Instalación y Configuración](#-instalación-y-configuración)
-5. [Estructura de la Base de Datos](#-estructura-de-la-base-de-datos)
-6. [Estructura del Proyecto](#-estructura-del-proyecto)
-7. [Licencia](#-licencia)
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
----
+You can read the [user guide](https://codeigniter.com/user_guide/)
+corresponding to the latest version of the framework.
 
-## ✨ Características Principales
+## Important Change with index.php
 
-El sistema se divide en dos módulos principales: el **Portal del Cliente** y el **Panel de Administración**.
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-### 👤 Portal del Cliente
-*   **Catálogo Interactivo:** Exploración de vehículos disponibles con filtros avanzados (marca, categoría, tipo de transmisión, combustible, precio).
-*   **Reservas en Línea:** Proceso de reserva intuitivo seleccionando fechas de entrega y devolución con cálculo automático del costo total.
-*   **Gestión de Perfil:** Registro de usuarios, inicio de sesión seguro y panel personal para ver el historial de reservas y el estado actual de cada una.
-*   **Notificaciones por Correo:** Confirmaciones de reserva y actualizaciones de estado automáticas.
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-### 🔑 Panel de Administración (Backoffice)
-*   **Dashboard Estadístico:** Vista general de ingresos mensuales, vehículos activos, reservas pendientes y estadísticas de uso de la flota.
-*   **Gestión de Flota (CRUD):** Registro de nuevos vehículos con especificaciones detalladas, carga de imágenes y control de estado de disponibilidad (Disponible, Rentado, En Mantenimiento).
-*   **Gestión de Categorías:** Clasificación de vehículos (Económico, SUV, Sedán, Deportivo, Eléctrico) con tarifas base personalizadas.
-*   **Control de Reservas:** Aprobación, cancelación y finalización de reservas, además del registro de devoluciones.
-*   **Gestión de Usuarios:** Registro de clientes y asignación de roles de administrador.
+**Please** read the user guide for a better explanation of how CI4 works!
 
----
+## Repository Management
 
-## 🛠️ Arquitectura y Tecnologías
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-El proyecto sigue el patrón de diseño **MVC (Modelo-Vista-Controlador)** provisto por CodeIgniter, garantizando un código limpio, modular y escalable.
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-*   **Backend:** PHP 8.1+ & CodeIgniter 4
-*   **Base de Datos:** MySQL 8.0 / MariaDB
-*   **Frontend:** HTML5, CSS3, JavaScript (Bootstrap 5 / Tailwind CSS para un diseño responsive y moderno)
-*   **Manejador de Dependencias:** Composer
+## Contributing
 
----
+We welcome contributions from the community.
 
-## 💻 Requisitos del Sistema
+Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
 
-Antes de comenzar, asegúrate de cumplir con los siguientes requisitos:
-*   PHP $\ge$ 8.1 (con las extensiones activadas: `intl`, `mbstring`, `curl`, `mysqlnd`, `gd`).
-*   Servidor web (Apache con `mod_rewrite` habilitado, Nginx o el servidor de desarrollo integrado de CodeIgniter).
-*   MySQL o MariaDB.
-*   Composer instalado globalmente.
+## Server Requirements
 
----
+PHP version 8.2 or higher is required, with the following extensions installed:
 
-## 🚀 Instalación y Configuración
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
-Sigue estos sencillos pasos para poner en marcha el proyecto localmente:
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - The end of life date for PHP 8.1 was December 31, 2025.
+> - If you are still using below PHP 8.2, you should upgrade immediately.
+> - The end of life date for PHP 8.2 will be December 31, 2026.
 
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/OctavioRiccardo/MyCar-Codeigniter.git
-cd MyCar-Codeigniter
-```
+Additionally, make sure that the following extensions are enabled in your PHP:
 
-### 2. Instalar dependencias con Composer
-```bash
-composer install
-```
-
-### 3. Configurar las variables de entorno
-Copia el archivo de configuración de ejemplo `.env` y renómbralo:
-```bash
-cp env .env
-```
-Abre el archivo `.env` y configura los detalles de tu base de datos y la URL del sitio:
-```env
-# Configuración de Entorno
-CI_ENVIRONMENT = development
-
-# URL Base
-app.baseURL = 'http://localhost:8080/'
-
-# Configuración de Base de Datos
-database.default.hostname = localhost
-database.default.database = mycar_db
-database.default.username = tu_usuario
-database.default.password = tu_contraseña
-database.default.DBDriver = MySQLi
-database.default.DBPrefix = 
-database.default.port = 3306
-```
-
-### 4. Ejecutar las Migraciones y Seeders
-Crea las tablas necesarias en la base de datos y carga los datos de prueba (vehículos por defecto, categorías y usuario administrador):
-```bash
-php spark migrate
-php spark db:seed MainSeeder
-```
-*(Nota: El administrador por defecto se creará con las credenciales indicadas en el archivo del Seeder, usualmente admin@mycar.com / admin123).*
-
-### 5. Iniciar el Servidor de Desarrollo
-Puedes utilizar el servidor interno de CodeIgniter para ejecutar la aplicación:
-```bash
-php spark serve
-```
-La aplicación estará disponible en [http://localhost:8080](http://localhost:8080).
-
----
-
-## 🗃️ Estructura de la Base de Datos
-
-El esquema relacional consta de las siguientes tablas principales:
-
-| Tabla | Descripción |
-| :--- | :--- |
-| **`usuarios`** | Almacena la información de clientes y administradores (ID, nombre, correo, password hash, rol, fecha_registro). |
-| **`categorias`** | Categorías de vehículos (ID, nombre, tarifa_diaria, descripcion). |
-| **`vehiculos`** | Flota de autos (ID, categoria_id, marca, modelo, año, matricula, color, estado, imagen_url). |
-| **`reservas`** | Registro de reservas (ID, usuario_id, vehiculo_id, fecha_inicio, fecha_fin, costo_total, estado). |
-| **`pagos`** | Detalle de transacciones (ID, reserva_id, monto, metodo_pago, fecha_pago, estado). |
-
----
-
-## 📂 Estructura del Proyecto
-
-A continuación se muestra la estructura estándar simplificada del framework aplicada a MyCar:
-
-```text
-MyCar-Codeigniter/
-├── app/
-│   ├── Config/          # Configuración de la aplicación
-│   ├── Controllers/     # Controladores (Admin, Cliente, Auth, etc.)
-│   ├── Database/        # Migraciones y Seeders para la BD
-│   ├── Models/          # Modelos de datos (VehiculoModel, ReservaModel, etc.)
-│   ├── Views/           # Vistas (Plantillas HTML, Dashboard, Catálogo)
-│   └── Filters/         # Filtros de seguridad (Autenticación y Roles)
-├── public/              # Directorio público (index.php, CSS, JS, Imágenes)
-├── writable/            # Directorio de escritura (Logs, Cargas de imágenes)
-├── .env                 # Variables de entorno (no subir a producción)
-├── composer.json        # Dependencias de PHP
-└── README.md            # Documentación del proyecto
-```
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Consúltase el archivo `LICENSE` para más detalles.
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
