@@ -14,7 +14,7 @@ class AlquileresModel extends Model
         'cantidad_dias',
         'fecha_hasta',
         'id_vehiculo',
-        'id_cliente'
+        'id_usuario'
     ];
 
     protected $returnType = 'array';
