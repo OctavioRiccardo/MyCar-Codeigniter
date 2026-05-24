@@ -12,6 +12,6 @@ class Inicio extends BaseController
 
         $data['vehiculos'] = $vehiculosModel->findAll();
 
-        return view('inicio', $data);
+        return view('Vistas_Comunes/inicio', $data);
     }
 }

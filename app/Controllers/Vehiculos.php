@@ -23,7 +23,7 @@ class Vehiculos extends Controller
     {
         $data['vehiculos'] = $this->vehiculosModel->findAll();
 
-        return view('vehiculos/index', $data);
+        return view('Vistas_Administrador/vehiculos_lista', $data);
     }
 
     /*
@@ -44,7 +44,7 @@ class Vehiculos extends Controller
 
         $data['vehiculo'] = $vehiculo;
 
-        return view('vehiculos/show', $data);
+        return view('Vistas_Administrador/vehiculos_mostrar', $data);
     }
 
     /*
@@ -54,7 +54,7 @@ class Vehiculos extends Controller
     */
     public function new()
     {
-        return view('vehiculos/create');
+        return view('Vistas_Administrador/vehiculos_crear');
     }
 
     /*
@@ -98,7 +98,7 @@ class Vehiculos extends Controller
 
         $data['vehiculo'] = $vehiculo;
 
-        return view('vehiculos/edit', $data);
+        return view('Vistas_Administrador/vehiculos_editar', $data);
     }
 
     /*
