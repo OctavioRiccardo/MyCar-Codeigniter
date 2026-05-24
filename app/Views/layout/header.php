@@ -88,7 +88,10 @@
                             Iniciar Sesión
                         </a>
 
-                        <a href="#" class="button btn-register">
+                        <a
+                            href="<?= site_url('usuarios/crear') ?>"
+                            class="button btn-register"
+                        >
                             Registrarse
                         </a>
 
