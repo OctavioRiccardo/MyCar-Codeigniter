@@ -1,0 +1,9 @@
+CRITICAL - 2026-05-24 00:38:44 --> Error: Class "App\Models\VehiculoModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Inicio.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -17,7 +17,8 @@ class VehiculosModel extends Model
         'numero_plazas',
         'motor',
         'kilometraje',
-        'precio_alquiler_dia'
+        'precio_alquiler_dia',
+        'disponibilidad'
     ];
 
     protected $returnType = 'array';
