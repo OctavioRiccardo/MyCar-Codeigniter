@@ -1,142 +1,177 @@
+<?php echo view('layout/header'); ?>
+
 <style>
 
-    .container{
-        width: 90%;
-        margin: 40px auto;
+    .section-vehiculos{
+        padding: 40px 20px;
     }
 
     .titulo{
-        margin-bottom: 25px;
-        color: #222;
-    }
-
-    .cards{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-    }
-
-    .card{
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-
-        transition: 0.3s;
-    }
-
-    .card:hover{
-        transform: translateY(-5px);
-    }
-
-    .tipo{
-        display: inline-block;
-        background-color: #e5e7eb;
-        color: #111827;
-
-        padding: 5px 10px;
-        border-radius: 5px;
-
-        margin-bottom: 12px;
-        font-size: 14px;
+        margin-bottom: 30px;
+        color: #1f2937;
         font-weight: bold;
     }
 
-    .modelo{
-        font-size: 22px;
-        margin-bottom: 10px;
-        color: #111827;
+    .vehiculo-card{
+        height: 100%;
+        border-radius: 12px;
+        transition: 0.3s;
     }
 
-    .detalle{
-        margin-bottom: 8px;
-        color: #444;
+    .vehiculo-card:hover{
+        transform: translateY(-5px);
+    }
+
+    .vehiculo-imagen{
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .vehiculo-placeholder{
+        width: 100%;
+        height: 220px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #e5e7eb;
+        color: #6b7280;
+
+        font-size: 18px;
+        font-weight: bold;
+
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .tipo-badge{
+        margin-bottom: 12px;
     }
 
     .precio{
-        margin-top: 15px;
-        font-size: 20px;
+        font-size: 1.3rem;
         font-weight: bold;
         color: #16a34a;
     }
 
-    .estado{
-        margin-top: 10px;
-        font-weight: bold;
-    }
-
-    .disponible{
-        color: green;
-    }
-
-    .no-disponible{
-        color: red;
+    .detalle{
+        margin-bottom: 8px;
     }
 
 </style>
 
-<?php echo view('layout/header'); ?>
+<section class="section section-vehiculos">
 
-<div class="container">
+    <div class="container">
 
-    <h1 class="titulo">
-        Vehículos Disponibles
-    </h1>
+        <h1 class="title titulo">
+            Vehículos Disponibles
+        </h1>
 
-    <div class="cards">
+        <div class="columns is-multiline">
 
-        <?php foreach($vehiculos as $vehiculo): ?>
+            <?php foreach($vehiculos as $vehiculo): ?>
 
-            <div class="card">
+                <div class="column is-12-mobile is-6-tablet is-4-desktop">
 
-                <div class="tipo">
-                    <?php echo ucfirst($vehiculo['tipo_vehiculo']); ?>
+                    <div class="card vehiculo-card">
+
+                        <!-- IMAGEN -->
+
+                        <?php if(!empty($vehiculo['imagen'])): ?>
+
+                            <div class="card-image">
+
+                                <figure class="image">
+
+                                    <img 
+                                        src="<?= base_url($vehiculo['imagen']) ?>"
+                                        alt="Vehículo"
+                                        class="vehiculo-imagen"
+                                    >
+
+                                </figure>
+
+                            </div>
+
+                        <?php else: ?>
+
+                            <div class="vehiculo-placeholder">
+                                Sin Imagen
+                            </div>
+
+                        <?php endif; ?>
+
+                        <!-- CONTENIDO -->
+
+                        <div class="card-content">
+
+                            <span class="tag is-dark tipo-badge">
+                                <?= ucfirst($vehiculo['tipo_vehiculo']); ?>
+                            </span>
+
+                            <p class="title is-4">
+                                <?= $vehiculo['marca'] . ' ' . $vehiculo['modelo']; ?>
+                            </p>
+
+                            <div class="content">
+
+                                <p class="detalle">
+                                    <strong>Año:</strong>
+                                    <?= $vehiculo['anio']; ?>
+                                </p>
+
+                                <p class="detalle">
+                                    <strong>Plazas:</strong>
+                                    <?= $vehiculo['numero_plazas']; ?>
+                                </p>
+
+                                <p class="detalle">
+                                    <strong>Motor:</strong>
+                                    <?= $vehiculo['motor']; ?>
+                                </p>
+
+                                <p class="detalle">
+                                    <strong>Kilometraje:</strong>
+                                    <?= number_format($vehiculo['kilometraje'], 0, ',', '.'); ?> km
+                                </p>
+
+                                <p class="precio">
+                                    $<?= number_format($vehiculo['precio_alquiler_dia'], 0, ',', '.'); ?> / día
+                                </p>
+
+                                <br>
+
+                                <?php if($vehiculo['disponibilidad'] == 'disponible'): ?>
+
+                                    <span class="tag is-success is-medium">
+                                        Disponible
+                                    </span>
+
+                                <?php else: ?>
+
+                                    <span class="tag is-danger is-medium">
+                                        No Disponible
+                                    </span>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="modelo">
-                    <?php echo $vehiculo['marca'] . " " . $vehiculo['modelo']; ?>
-                </div>
+            <?php endforeach; ?>
 
-                <div class="detalle">
-                    <strong>Año:</strong>
-                    <?php echo $vehiculo['anio']; ?>
-                </div>
-
-                <div class="detalle">
-                    <strong>Plazas:</strong>
-                    <?php echo $vehiculo['numero_plazas']; ?>
-                </div>
-
-                <div class="detalle">
-                    <strong>Motor:</strong>
-                    <?php echo $vehiculo['motor']; ?>
-                </div>
-
-                <div class="detalle">
-                    <strong>Kilometraje:</strong>
-                    <?php echo number_format($vehiculo['kilometraje'], 0, ',', '.'); ?> km
-                </div>
-
-                <div class="precio">
-                    $<?php echo number_format($vehiculo['precio_alquiler_dia'], 0, ',', '.'); ?> / día
-                </div>
-
-                <div class="estado 
-                    <?php echo ($vehiculo['disponibilidad'] == 'disponible') 
-                        ? 'disponible' 
-                        : 'no-disponible'; ?>">
-
-                    <?php echo ucfirst($vehiculo['disponibilidad']); ?>
-
-                </div>
-
-            </div>
-
-        <?php endforeach; ?>
+        </div>
 
     </div>
 
-</div>
-
-<?php echo view('layout/footer'); ?>
+</section>

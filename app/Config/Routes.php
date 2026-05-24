@@ -10,3 +10,5 @@ $routes->get('/', 'Inicio::index');
 
 // VERIFICAR CONEXIÓN A LA BASE DE DATOS
 $routes->get('/testdb', 'TestDB::index');
+
+// RUTA DE VEHICULOS

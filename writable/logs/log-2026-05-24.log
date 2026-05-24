@@ -7,3 +7,62 @@ in APPPATH\Controllers\Inicio.php on line 11.
  4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
  5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-24 00:40:09 --> Error: Class "App\Controllers\VehiculosModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Inicio.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-24 00:44:36 --> Error: Class "App\Controllers\VehiculosModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Inicio.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-24 00:47:23 --> Error: Class "App\Controllers\VehiculosModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Inicio.php on line 11.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-24 00:48:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layout/footer.php"
+[Method: GET, Route: /]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/footer.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('layout/footer', [], true)
+ 3 APPPATH\Views\inicio.php(142): view('layout/footer')
+ 4 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\MyCar-Codeigniter\\app\\Views\\inicio.php')
+ 5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('inicio', [], true)
+ 7 APPPATH\Controllers\Inicio.php(15): view('inicio', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 9 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+10 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-24 01:27:32 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "layout/footer.php"
+[Method: GET, Route: /]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/footer.php')
+ 2 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('layout/footer', [], true)
+ 3 APPPATH\Views\inicio.php(179): view('layout/footer')
+ 4 SYSTEMPATH\View\View.php(240): include('C:\\xampp\\htdocs\\MyCar-Codeigniter\\app\\Views\\inicio.php')
+ 5 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1254): CodeIgniter\View\View->render('inicio', [], true)
+ 7 APPPATH\Controllers\Inicio.php(15): view('inicio', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 9 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+10 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

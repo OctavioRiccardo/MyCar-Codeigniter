@@ -4,63 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>MyCar - Alquiler de Vehículos</title>
 
-    <style>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    <style>
 
         body{
             background-color: #f4f4f4;
         }
 
-        header{
-            width: 100%;
+        .navbar-mycar{
             background-color: #1f2937;
+            padding: 10px 25px;
+        }
+
+        .navbar-mycar .navbar-item,
+        .navbar-mycar .navbar-link{
             color: white;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 20px 40px;
         }
 
-        .logo{
-            font-size: 24px;
+        .navbar-mycar .navbar-item:hover,
+        .navbar-mycar .navbar-link:hover{
+            background-color: transparent !important;
+            color: #d1d5db !important;
+        }
+
+        .logo-text{
+            font-size: 1.4rem;
             font-weight: bold;
+            color: white !important;
         }
 
-        .header-buttons{
-            display: flex;
-            gap: 15px;
-        }
-
-        .header-buttons a{
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-
-        .login-btn{
+        .btn-login{
             background-color: #2563eb;
             color: white;
+            border: none;
         }
 
-        .register-btn{
-            background-color: #10b981;
+        .btn-login:hover{
+            background-color: #1d4ed8;
             color: white;
         }
 
-        .header-buttons a:hover{
-            opacity: 0.85;
+        .btn-register{
+            background-color: #10b981;
+            color: white;
+            border: none;
+        }
+
+        .btn-register:hover{
+            background-color: #059669;
+            color: white;
         }
 
     </style>
@@ -68,22 +66,38 @@
 
 <body>
 
-    <header>
+    <nav class="navbar navbar-mycar" role="navigation">
 
-        <div class="logo">
-            MyCar - Alquiler de Vehículos
-        </div>
+        <div class="navbar-brand">
 
-        <div class="header-buttons">
-
-            <a href="#" class="login-btn">
-                Iniciar Sesión
-            </a>
-
-            <a href="#" class="register-btn">
-                Registrarse
+            <a class="navbar-item logo-text" href="<?= base_url('/') ?>">
+                MyCar - Alquiler de Vehículos
             </a>
 
         </div>
 
-    </header>
+        <div class="navbar-menu is-active">
+
+            <div class="navbar-end">
+
+                <div class="navbar-item">
+
+                    <div class="buttons">
+
+                        <a href="#" class="button btn-login">
+                            Iniciar Sesión
+                        </a>
+
+                        <a href="#" class="button btn-register">
+                            Registrarse
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>

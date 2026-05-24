@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\VehiculoModel;
+use App\Models\VehiculosModel;
 
 class Inicio extends BaseController
 {
     public function index()
     {
-        $vehiculoModel = new VehiculoModel();
+        $vehiculosModel = new VehiculosModel();
 
-        $data['vehiculos'] = $vehiculoModel->findAll();
+        $data['vehiculos'] = $vehiculosModel->findAll();
 
         return view('inicio', $data);
     }

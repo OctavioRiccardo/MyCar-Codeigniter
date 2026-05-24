@@ -11,6 +11,7 @@ class VehiculosModel extends Model
 
     protected $allowedFields = [
         'tipo_vehiculo',
+        'imagen',
         'marca',
         'modelo',
         'anio',
