@@ -29,8 +29,8 @@
         ========================== */
         .navbar-mycar {
             background-color: #0f172a;
-            padding: 10px 30px;
-            min-height: 90px;
+            padding: 8px 30px;
+            min-height: 105px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
@@ -58,9 +58,9 @@
            LOGO
         ========================== */
         .logo-img {
-            height: 75px;
+            height: 95px;
             width: auto;
-            max-width: 320px;
+            max-width: 360px;
             object-fit: contain;
             display: block;
         }
@@ -105,12 +105,13 @@
         @media screen and (max-width: 768px) {
 
             .navbar-mycar {
-                padding: 10px 15px;
+                padding: 8px 15px;
+                min-height: 85px;
             }
 
             .logo-img {
-                height: 60px;
-                max-width: 240px;
+                height: 75px;
+                max-width: 280px;
             }
 
             .buttons {
