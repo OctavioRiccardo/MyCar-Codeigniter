@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
 // 1. Rutas Generales / Vistas Comunes
 $routes->get('/', 'Inicio::index');
 $routes->get('testdb', 'TestDB::index');
+$routes->get('login', 'UsuariosController::login');
 
 // 2. Rutas del Cliente
 // $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1');

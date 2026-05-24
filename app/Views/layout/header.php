@@ -143,7 +143,7 @@
 
                     <div class="buttons">
 
-                        <a href="#"
+                        <a href="<?= site_url('login') ?>"
                             class="button btn-login">
 
                             <span class="icon">
