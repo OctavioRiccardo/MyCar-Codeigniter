@@ -160,10 +160,10 @@
                             <div class="control">
 
                                 <a
-                                    href="<?= site_url('usuarios') ?>"
+                                    href="<?= site_url('/') ?>"
                                     class="button is-light"
                                 >
-                                    Volver
+                                    Cancelar
                                 </a>
 
                             </div>
