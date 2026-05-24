@@ -36,10 +36,7 @@ class UsuariosController extends BaseController
     {
         $datos = [
             'nombre_usuario' => $this->request->getPost('nombre_usuario'),
-            'password'       => password_hash(
-                $this->request->getPost('clave_usuario'),
-                PASSWORD_DEFAULT
-            ),
+            'password'       => password_hash($this->request->getPost('clave_usuario'),PASSWORD_DEFAULT),
             'rol'             => 'cliente',
             'apellido_usuario'=> $this->request->getPost('nombre_apellido'),
             'direccion'       => $this->request->getPost('direccion'),
