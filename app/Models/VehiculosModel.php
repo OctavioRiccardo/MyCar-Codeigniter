@@ -10,6 +10,7 @@ class VehiculosModel extends Model
     protected $primaryKey = 'id_vehiculo';
 
     protected $allowedFields = [
+        'tipo_vehiculo',
         'marca',
         'modelo',
         'anio',
