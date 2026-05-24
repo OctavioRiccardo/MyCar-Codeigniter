@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 // CONTROLADOR DE INICIO - MENU PRINCIIPAL
 $routes->get('/', 'Inicio::index');
 
-/** @var RouteCollection $routes */
+/* @var RouteCollection $routes */
 //$routes->get('/', 'Home::index');
 
 // VERIFICAR CONEXIÓN A LA BASE DE DATOS
