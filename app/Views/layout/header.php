@@ -52,7 +52,8 @@
 
         /* Logo */
         .logo-img {
-            height: 95px;
+            height: 95px !important;
+            max-height: 95px !important;
             width: auto;
             max-width: 360px;
             object-fit: contain;
@@ -98,7 +99,8 @@
             }
 
             .logo-img {
-                height: 75px;
+                height: 75px !important;
+                max-height: 75px !important;
                 max-width: 280px;
             }
 
