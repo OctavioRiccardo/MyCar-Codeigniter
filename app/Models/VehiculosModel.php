@@ -8,6 +8,12 @@ class VehiculosModel extends Model
 {
     protected $table = 'vehiculos';
     protected $primaryKey = 'id_vehiculo';
+    protected $useAutoIncrement = true;
+    protected $returnType = 'array';
+
+    // Habilitar baja lógica (Soft Deletes)
+    protected $useSoftDeletes = true;
+    protected $deletedField = 'deleted_at';
 
     protected $allowedFields = [
         'tipo_vehiculo',
@@ -19,12 +25,9 @@ class VehiculosModel extends Model
         'motor',
         'kilometraje',
         'precio_alquiler_dia',
-        'disponibilidad'
+        'disponibilidad',
+        'deleted_at'
     ];
-
-    protected $returnType = 'array';
-
-    protected $useAutoIncrement = true;
 
     protected $useTimestamps = false;
 }

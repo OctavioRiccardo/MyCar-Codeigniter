@@ -36,15 +36,15 @@ class UsuariosController extends BaseController
     {
         $datos = [
             'nombre_usuario' => $this->request->getPost('nombre_usuario'),
-            'clave_usuario' => password_hash(
+            'password'       => password_hash(
                 $this->request->getPost('clave_usuario'),
                 PASSWORD_DEFAULT
             ),
-            'rol' => 'cliente',
-            'nombre_apellido' => $this->request->getPost('nombre_apellido'),
-            'direccion' => $this->request->getPost('direccion'),
-            'telefono' => $this->request->getPost('telefono'),
-            'fecha_alta' => date('Y-m-d')
+            'rol'             => 'cliente',
+            'apellido_usuario'=> $this->request->getPost('nombre_apellido'),
+            'direccion'       => $this->request->getPost('direccion'),
+            'telefono'        => $this->request->getPost('telefono'),
+            'fecha_alta'      => date('Y-m-d')
         ];
 
         if (!$this->usuarios->insert($datos)) {
@@ -68,6 +68,9 @@ class UsuariosController extends BaseController
             );
         }
 
+        // Mapeamos el campo de la BD al nombre esperado por la vista del formulario
+        $usuario['nombre_apellido'] = $usuario['apellido_usuario'];
+
         return view('usuarios/formulario', [
             'titulo' => 'Editar Usuario',
             'accion' => site_url('usuarios/actualizar/' . $id),
@@ -87,16 +90,16 @@ class UsuariosController extends BaseController
         }
 
         $datos = [
-            'nombre_usuario' => $this->request->getPost('nombre_usuario'),
-            'rol' => $this->request->getPost('rol'),
-            'nombre_apellido' => $this->request->getPost('nombre_apellido'),
-            'direccion' => $this->request->getPost('direccion'),
-            'telefono' => $this->request->getPost('telefono')
+            'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
+            'rol'              => $this->request->getPost('rol'),
+            'apellido_usuario' => $this->request->getPost('nombre_apellido'),
+            'direccion'        => $this->request->getPost('direccion'),
+            'telefono'         => $this->request->getPost('telefono')
         ];
 
         // Solo actualizar contraseña si se escribió una nueva
         if ($this->request->getPost('clave_usuario') != '') {
-            $datos['clave_usuario'] = password_hash(
+            $datos['password'] = password_hash(
                 $this->request->getPost('clave_usuario'),
                 PASSWORD_DEFAULT
             );
@@ -112,7 +115,7 @@ class UsuariosController extends BaseController
             ->with('mensaje', 'Usuario actualizado correctamente.');
     }
 
-    // ELIMINAR USUARIO
+    // ELIMINAR USUARIO (Baja Lógica integrada)
     public function eliminar($id)
     {
         $usuario = $this->usuarios->find($id);
@@ -123,9 +126,10 @@ class UsuariosController extends BaseController
             );
         }
 
+        // Esto ejecutará un Soft Delete debido a la configuración del modelo
         $this->usuarios->delete($id);
 
         return redirect()->to('/usuarios')
-            ->with('mensaje', 'Usuario eliminado correctamente.');
+            ->with('mensaje', 'Usuario dado de baja correctamente.');
     }
 }
