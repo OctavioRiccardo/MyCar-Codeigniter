@@ -24,9 +24,7 @@
             font-family: system-ui, -apple-system, sans-serif;
         }
 
-        /* =========================
-           NAVBAR PRINCIPAL
-        ========================== */
+        /* Navbar Principal */
         .navbar-mycar {
             background-color: #0f172a;
             padding: 8px 30px;
@@ -45,18 +43,14 @@
             color: #5eead4 !important;
         }
 
-        /* =========================
-           CONTENEDOR LOGO
-        ========================== */
+        /* Contenedor Logo */
         .logo-container {
             display: flex;
             align-items: center;
             padding: 0 !important;
         }
 
-        /* =========================
-           LOGO
-        ========================== */
+        /* Logo */
         .logo-img {
             height: 95px;
             width: auto;
@@ -65,9 +59,7 @@
             display: block;
         }
 
-        /* =========================
-           BOTÓN LOGIN
-        ========================== */
+        /* Botón Login */
         .btn-login {
             background-color: #334155;
             color: white;
@@ -81,9 +73,7 @@
             color: white;
         }
 
-        /* =========================
-           BOTÓN REGISTRO
-        ========================== */
+        /* Botón Registro */
         .btn-register {
             background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
             color: white;
@@ -99,9 +89,7 @@
             color: white;
         }
 
-        /* =========================
-           RESPONSIVE
-        ========================== */
+        /* Responsive */
         @media screen and (max-width: 768px) {
 
             .navbar-mycar {
@@ -124,12 +112,12 @@
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- Navbar -->
     <nav class="navbar navbar-mycar"
         role="navigation"
         aria-label="main navigation">
 
-        <!-- LOGO -->
+        <!-- Logo -->
         <div class="navbar-brand">
 
             <a class="navbar-item logo-container"
@@ -144,7 +132,7 @@
 
         </div>
 
-        <!-- BOTONES -->
+        <!-- Botones -->
         <div class="navbar-menu is-active">
 
             <div class="navbar-end">

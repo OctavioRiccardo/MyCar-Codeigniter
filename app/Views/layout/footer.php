@@ -1,10 +1,10 @@
 <style>
-        /* Estilos del Footer */
+        /* Estilos */
         .footer-mycar {
-            background-color: #0f172a; /* Mismo Slate oscuro del Navbar */
+            background-color: #0f172a; 
             color: #94a3b8; 
             padding: 30px 20px;
-            margin-top: auto; /* Mantiene el footer abajo si hay poco contenido */
+            margin-top: auto; 
             border-top: 1px solid #1e293b;
         }
 
@@ -21,7 +21,7 @@
         }
 
         .footer-authors i {
-            color: #059669; /* Icono de código en verde esmeralda */
+            color: #059669; /* Icono verde */
         }
 
         .footer-copyright {

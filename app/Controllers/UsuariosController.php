@@ -18,13 +18,13 @@ class UsuariosController extends BaseController
     {
         $data['usuarios'] = $this->usuarios->findAll();
 
-        return view('usuarios/index', $data);
+        return view('Vistas_Administrador/usuarios_index', $data);
     }
 
     // FORMULARIO ALTA
     public function crear()
     {
-        return view('usuarios/formulario', [
+        return view('Vistas_Comunes/login', [
             'titulo' => 'Crear Usuario',
             'accion' => site_url('usuarios/guardar'),
             'usuario' => null
@@ -68,7 +68,7 @@ class UsuariosController extends BaseController
         // Mapeamos el campo de la BD al nombre esperado por la vista del formulario
         $usuario['nombre_apellido'] = $usuario['apellido_usuario'];
 
-        return view('usuarios/formulario', [
+        return view('Vistas_Comunes/login', [
             'titulo' => 'Editar Usuario',
             'accion' => site_url('usuarios/actualizar/' . $id),
             'usuario' => $usuario

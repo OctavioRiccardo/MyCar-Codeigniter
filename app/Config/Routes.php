@@ -28,3 +28,16 @@ $routes->get('usuarios/editar/(:num)', 'UsuariosController::editar/$1');
 $routes->post('usuarios/actualizar/(:num)', 'UsuariosController::actualizar/$1');
 // ELIMINAR USUARIO
 $routes->get('usuarios/eliminar/(:num)', 'UsuariosController::eliminar/$1');
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS VEHÍCULOS (ADMINISTRADOR)
+|--------------------------------------------------------------------------
+*/
+$routes->get('vehiculos', 'Vehiculos::index');
+$routes->get('vehiculos/new', 'Vehiculos::new');
+$routes->post('vehiculos/create', 'Vehiculos::create');
+$routes->get('vehiculos/edit/(:num)', 'Vehiculos::edit/$1');
+$routes->post('vehiculos/update/(:num)', 'Vehiculos::update/$1');
+$routes->get('vehiculos/delete/(:num)', 'Vehiculos::delete/$1');
+$routes->get('vehiculos/(:num)', 'Vehiculos::show/$1');
