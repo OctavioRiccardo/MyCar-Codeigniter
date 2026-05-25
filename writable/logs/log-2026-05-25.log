@@ -928,3 +928,52 @@ DEBUG - 2026-05-25 08:48:16 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-05-25 08:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-05-25 08:48:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-05-25 08:48:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-25 22:16:02 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'gestion-mycar' in C:\xampp\htdocs\MyCar-Codeigniter\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'gestion-mycar', 3306, '', 0)
+#1 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\MyCar-Codeigniter\system\Model.php(255): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\MyCar-Codeigniter\system\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\MyCar-Codeigniter\app\Controllers\InicioController.php(13): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(974): App\Controllers\InicioController->index()
+#8 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InicioController))
+#9 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\MyCar-Codeigniter\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp\htdocs\MyCar-Codeigniter\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp\htdocs\MyCar-Codeigniter\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'gestion-mycar' in C:\xampp\htdocs\MyCar-Codeigniter\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\MyCar-Codeigniter\system\Database\BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\xampp\htdocs\MyCar-Codeigniter\system\Model.php(255): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\MyCar-Codeigniter\system\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\xampp\htdocs\MyCar-Codeigniter\app\Controllers\InicioController.php(13): CodeIgniter\BaseModel->findAll()
+#6 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(974): App\Controllers\InicioController->index()
+#7 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InicioController))
+#8 C:\xampp\htdocs\MyCar-Codeigniter\system\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\xampp\htdocs\MyCar-Codeigniter\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 C:\xampp\htdocs\MyCar-Codeigniter\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\xampp\htdocs\MyCar-Codeigniter\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2026-05-25 22:16:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'gestion-mycar'
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1647): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `vehiculos`
+WHERE `vehiculos`.`deleted_at` IS NULL', [], false)
+ 3 SYSTEMPATH\Model.php(255): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Controllers\InicioController.php(13): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\InicioController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InicioController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
