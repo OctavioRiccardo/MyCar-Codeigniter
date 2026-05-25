@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1779671480;_ci_previous_url|s:47:"http://localhost/MyCar-Codeigniter/public/login";_ci_old_input|a:2:{s:3:"get";a:0:{}s:4:"post";a:2:{s:14:"nombre_usuario";s:9:"facundo22";s:13:"clave_usuario";s:10:"facundo123";}}__ci_vars|a:2:{s:13:"_ci_old_input";s:3:"old";s:11:"error_login";s:3:"old";}error_login|s:23:"Contraseña incorrecta.";

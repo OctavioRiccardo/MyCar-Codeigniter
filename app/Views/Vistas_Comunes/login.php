@@ -177,7 +177,7 @@
                     <i class="fa-solid fa-lock input-icon"></i>
                     <input 
                         type="password" 
-                        name="clave_usuario" 
+                        name="password" 
                         class="form-input" 
                         placeholder="Ingresa tu contraseña"
                         required

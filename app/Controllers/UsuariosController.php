@@ -13,7 +13,7 @@ class UsuariosController extends BaseController
         $this->usuarios = new UsuariosModel();
     }
 
-    // LISTAR USUARIOS
+    // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()
     {
         $data['usuarios'] = $this->usuarios->findAll();
@@ -31,6 +31,52 @@ class UsuariosController extends BaseController
         ]);
     }
 
+    // GUARDAR EL USUARIO AL CONFIRMAR
+    public function confirmar()
+    {
+        $usuario = [
+            'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
+            'password'    => $this->request->getPost('clave_usuario'),
+            'rol'              => 'cliente',
+            'apellido_usuario'  => $this->request->getPost('nombre_apellido'),
+            'direccion'        => $this->request->getPost('direccion'),
+            'telefono'         => $this->request->getPost('telefono'),
+        ];
+
+        // Guardar temporalmente en sesión
+        session()->set('usuario_temp', $usuario);
+
+        return view('usuarios/confirmar_usuario', [
+            'usuario' => $usuario
+        ]);
+    }
+
+    public function guardarConfirmado()
+    {
+        $usuario = session()->get('usuario_temp');
+
+        if (!$usuario) {
+            return redirect()->to('/usuarios/create');
+        }
+
+        $model = new UsuariosModel();
+
+        $model->save([
+            'nombre_usuario'  => $usuario['nombre_usuario'],
+            'password'   => password_hash($usuario['password'], PASSWORD_DEFAULT),
+            'rol'              => 'cliente',
+            'apellido_usuario' => $usuario['apellido_usuario'],
+            'direccion'       => $usuario['direccion'],
+            'telefono'        => $usuario['telefono'],
+            'fecha_alta'       => date('Y-m-d')
+        ]);
+
+        // Eliminar sesión temporal
+        session()->remove('usuario_temp');
+
+        return redirect()->to('/');
+    }
+
     // GUARDAR NUEVO USUARIO
     public function guardar()
     {
@@ -38,6 +84,7 @@ class UsuariosController extends BaseController
         $rules = [
             'nombre_usuario'  => 'required|min_length[3]|max_length[50]|is_unique[usuarios.nombre_usuario]',
             'clave_usuario'   => 'required|min_length[6]|max_length[255]',
+            'rol'              => 'cliente',
             'nombre_apellido' => 'required|max_length[100]',
             'direccion'       => 'permit_empty|max_length[100]',
             'telefono'        => 'permit_empty|max_length[20]',
@@ -53,7 +100,7 @@ class UsuariosController extends BaseController
             'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
             'password'         => password_hash($this->request->getPost('clave_usuario'), PASSWORD_DEFAULT),
             'rol'              => 'cliente',
-            'apellido_usuario' => $this->request->getPost('nombre_apellido'),
+            'apellido_usuario' => $this->request->getPost('apellido_usuario'),
             'direccion'        => $this->request->getPost('direccion'),
             'telefono'         => $this->request->getPost('telefono'),
             'fecha_alta'       => date('Y-m-d')
