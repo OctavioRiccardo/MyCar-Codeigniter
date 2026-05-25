@@ -90,6 +90,23 @@
             color: white;
         }
 
+        /* Usuario logueado */
+        .user-session {
+            display: flex;
+            align-items: center;
+            color: #e2e8f0;
+            font-weight: 600;
+            margin-right: 14px;
+            padding: 0 10px;
+            font-size: 0.95rem;
+            gap: 8px;
+        }
+
+        .user-session i {
+            color: #5eead4;
+            font-size: 1rem;
+        }
+
         /* Responsive */
         @media screen and (max-width: 768px) {
 
@@ -141,29 +158,87 @@
 
                 <div class="navbar-item">
 
+                    <?php if(session()->get('logueado')): ?>
+
+                        <div class="user-session">
+
+                            <i class="fa-solid fa-circle-user"></i>
+
+                            <span>
+                                Hola, <?= session()->get('nombre_usuario') ?>
+                            </span>
+
+                        </div>
+
+                    <?php endif; ?>
+
                     <div class="buttons">
 
-                        <a href="<?= site_url('login') ?>"
-                            class="button btn-login">
+                        <?php if(session()->get('logueado')): ?>
 
-                            <span class="icon">
-                                <i class="fa-solid fa-user"></i>
-                            </span>
+                            <!-- Ver Perfil -->
+                            <a href="<?= site_url('perfil') ?>"
+                                class="button btn-login">
 
-                            <span>Iniciar Sesión</span>
+                                <span class="icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
 
-                        </a>
+                                <span>Ver Perfil</span>
 
-                        <a href="<?= site_url('usuarios/crear') ?>"
-                            class="button btn-register">
+                            </a>
 
-                            <span class="icon">
-                                <i class="fa-solid fa-user-plus"></i>
-                            </span>
+                            <!-- Ver Alquileres -->
+                            <a href="<?= site_url('alquileres') ?>"
+                                class="button btn-login">
 
-                            <span>Registrarse</span>
+                                <span class="icon">
+                                    <i class="fa-solid fa-car-side"></i>
+                                </span>
 
-                        </a>
+                                <span>Ver Alquileres</span>
+
+                            </a>
+
+                            <!-- Cerrar Sesión -->
+                            <a href="<?= site_url('logout') ?>"
+                                class="button btn-register">
+
+                                <span class="icon">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </span>
+
+                                <span>Cerrar Sesión</span>
+
+                            </a>
+
+                        <?php else: ?>
+
+                            <!-- Iniciar Sesión -->
+                            <a href="<?= site_url('login') ?>"
+                                class="button btn-login">
+
+                                <span class="icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+
+                                <span>Iniciar Sesión</span>
+
+                            </a>
+
+                            <!-- Registrarse -->
+                            <a href="<?= site_url('usuarios/crear') ?>"
+                                class="button btn-register">
+
+                                <span class="icon">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </span>
+
+                                <span>Registrarse</span>
+
+                            </a>
+
+                        <?php endif; ?>
 
                     </div>
 

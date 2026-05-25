@@ -160,7 +160,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= $accion ?>" method="post">
+        <form action="<?= site_url('usuarios/confirmar') ?>" method="post">
 
             <!-- Nombre de Usuario -->
             <div class="form-group">
@@ -187,7 +187,8 @@
                         type="password" 
                         name="clave_usuario" 
                         class="form-input" 
-                        placeholder="Mínimo 6 caracteres"
+                        placeholder="Mínimo 8 caracteres"
+                        minlength="8"
                         <?= isset($usuario) ? '' : 'required' ?>
                     >
                 </div>
@@ -257,3 +258,137 @@
 </div>
 
 <?php echo view('layout/footer'); ?>
+
+<!-- JAVASCRIPT para el control del formulario -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const formulario = document.querySelector('form');
+
+    const nombreUsuario = document.querySelector('input[name="nombre_usuario"]');
+    const claveUsuario = document.querySelector('input[name="clave_usuario"]');
+    const nombreApellido = document.querySelector('input[name="nombre_apellido"]');
+    const direccion = document.querySelector('input[name="direccion"]');
+    const telefono = document.querySelector('input[name="telefono"]');
+
+    formulario.addEventListener('submit', function (e) {
+
+        let errores = [];
+
+        // Limpiar errores visuales previos
+        limpiarErrores();
+
+        // =========================
+        // Nombre de Usuario
+        // =========================
+        if (nombreUsuario.value.trim() === '') {
+            errores.push('El nombre de usuario es obligatorio.');
+            marcarError(nombreUsuario);
+        }
+
+        // =========================
+        // Contraseña
+        // =========================
+        if (claveUsuario.hasAttribute('required') || claveUsuario.value.trim() !== '') {
+
+            if (claveUsuario.value.trim() === '') {
+                errores.push('La contraseña es obligatoria.');
+                marcarError(claveUsuario);
+            }
+            else if (claveUsuario.value.length < 8) {
+                errores.push('La contraseña debe tener al menos 8 caracteres.');
+                marcarError(claveUsuario);
+            }
+        }
+
+        // =========================
+        // Nombre y Apellido
+        // =========================
+        if (nombreApellido.value.trim() === '') {
+            errores.push('El nombre y apellido es obligatorio.');
+            marcarError(nombreApellido);
+        }
+
+        // =========================
+        // Dirección
+        // =========================
+        if (direccion.value.trim() === '') {
+            errores.push('La dirección es obligatoria.');
+            marcarError(direccion);
+        }
+
+        // =========================
+        // Teléfono
+        // =========================
+        if (telefono.value.trim() === '') {
+            errores.push('El teléfono es obligatorio.');
+            marcarError(telefono);
+        }
+
+        // =========================
+        // Mostrar errores
+        // =========================
+        if (errores.length > 0) {
+
+            e.preventDefault();
+
+            mostrarErrores(errores);
+        }
+
+    });
+
+    // ====================================
+    // Función marcar error visual
+    // ====================================
+    function marcarError(input) {
+        input.style.borderColor = '#dc2626';
+        input.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.15)';
+    }
+
+    // ====================================
+    // Limpiar errores visuales
+    // ====================================
+    function limpiarErrores() {
+
+        const inputs = document.querySelectorAll('.form-input');
+
+        inputs.forEach(input => {
+            input.style.borderColor = '#cbd5e1';
+            input.style.boxShadow = 'none';
+        });
+
+        const errorAnterior = document.querySelector('.error-box-js');
+
+        if (errorAnterior) {
+            errorAnterior.remove();
+        }
+    }
+
+    // ====================================
+    // Mostrar errores arriba del formulario
+    // ====================================
+    function mostrarErrores(errores) {
+
+        const divError = document.createElement('div');
+
+        divError.classList.add('error-box');
+        divError.classList.add('error-box-js');
+
+        let html = '<ul>';
+
+        errores.forEach(error => {
+            html += `<li>${error}</li>`;
+        });
+
+        html += '</ul>';
+
+        divError.innerHTML = html;
+
+        const titulo = document.querySelector('.register-subtitle');
+
+        titulo.insertAdjacentElement('afterend', divError);
+    }
+
+});
+</script>
