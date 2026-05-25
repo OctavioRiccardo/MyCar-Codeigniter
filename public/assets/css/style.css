@@ -1279,3 +1279,14 @@ body {
     color: #3b82f6;
 }
 
+/* Custom summary reservation text classes */
+.reserva-vehiculo-nombre {
+    color: var(--emerald-700) !important;
+    font-weight: 700;
+}
+
+.reserva-fecha-hasta {
+    color: var(--slate-900) !important;
+    font-weight: 700;
+}
+
