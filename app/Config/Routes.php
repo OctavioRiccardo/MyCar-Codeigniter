@@ -9,7 +9,7 @@ $routes->get('/', 'InicioController::index');
 $routes->get('testdb', 'TestDBController::index');
 
 // 2. Rutas del Cliente
-$routes->get('cliente/vehiculo/(:num)', 'VehiculosController::show/$1'); // Apunta a show del controlador de vehículos
+$routes->get('cliente/vehiculo/(:num)', 'VehiculosController::detalle/$1');
 $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1');
 $routes->post('cliente/reservar/procesar', 'ClientesController::procesarReserva');
 $routes->get('cliente/resumen', 'ClientesController::resumenReserva');

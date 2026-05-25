@@ -16,6 +16,10 @@ class UsuariosController extends BaseController
     // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $data['usuarios'] = $this->usuarios->findAll();
 
         return view('Vistas_Administrador/usuarios_lista', $data);
@@ -78,6 +82,10 @@ class UsuariosController extends BaseController
     // FORMULARIO EDICIÓN
     public function editar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
@@ -98,6 +106,10 @@ class UsuariosController extends BaseController
     // ACTUALIZAR USUARIO
     public function actualizar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
@@ -154,6 +166,10 @@ class UsuariosController extends BaseController
     // ELIMINAR USUARIO (Baja Lógica integrada)
     public function eliminar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
