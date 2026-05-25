@@ -1,3 +1,2 @@
 # Local configurations
 .env
-app/Config/Database.php
