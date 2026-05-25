@@ -49,6 +49,26 @@ class Vehiculos extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | Mostrar detalle del vehículo para clientes / invitados
+    |--------------------------------------------------------------------------
+    */
+    public function detalle($id = null)
+    {
+        $vehiculo = $this->vehiculosModel->find($id);
+
+        if (!$vehiculo) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(
+                'Vehículo no encontrado'
+            );
+        }
+
+        $data['vehiculo'] = $vehiculo;
+
+        return view('Vistas_Cliente/cliente_detalle_vehiculo', $data);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Formulario de creación
     |--------------------------------------------------------------------------
     */

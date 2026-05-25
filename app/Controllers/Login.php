@@ -54,7 +54,7 @@ class Login extends BaseController
         ]);
 
         // Redirigir al inicio
-        return redirect()->to('/');
+        return redirect()->to('/')->with('toast_success', '¡Bienvenido/a de nuevo, ' . $usuario['nombre_usuario'] . '! Has iniciado sesión con éxito.');
     }
 
     // ============================
@@ -62,8 +62,8 @@ class Login extends BaseController
     // ============================
     public function logout()
     {
-        session()->destroy();
+        session()->remove(['id_usuario', 'nombre_usuario', 'apellido_usuario', 'logueado']);
 
-        return redirect()->to('/');
+        return redirect()->to('/')->with('toast_warning', 'Has cerrado tu sesión de forma segura. ¡Esperamos verte pronto!');
     }
 }

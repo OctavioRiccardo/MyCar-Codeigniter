@@ -12,6 +12,10 @@ class Inicio extends BaseController
 
         $data['vehiculos'] = $vehiculosModel->findAll();
 
+        if (session()->get('logueado')) {
+            return view('Vistas_Cliente/cliente_inicio', $data);
+        }
+
         return view('Vistas_Comunes/inicio', $data);
     }
 }
