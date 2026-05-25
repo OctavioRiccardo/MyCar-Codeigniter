@@ -92,7 +92,7 @@
 
                             <!-- Cerrar Sesión -->
                             <a href="<?= site_url('logout') ?>"
-                                class="button btn-register">
+                                class="button btn-login">
 
                                 <span class="icon">
                                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -101,10 +101,7 @@
                                 <span>Cerrar Sesión</span>
 
                             </a>
-
                         <?php else: ?>
-
-                            <!-- Iniciar Sesión -->
                             <a href="<?= site_url('login') ?>"
                                 class="button btn-login">
 
@@ -116,7 +113,6 @@
 
                             </a>
 
-                            <!-- Registrarse -->
                             <a href="<?= site_url('usuarios/crear') ?>"
                                 class="button btn-register">
 
@@ -127,7 +123,6 @@
                                 <span>Registrarse</span>
 
                             </a>
-
                         <?php endif; ?>
 
                     </div>
@@ -138,4 +133,9 @@
 
         </div>
 
+        </div>
+
     </nav>
+</body>
+
+</html>

@@ -5,16 +5,15 @@ use CodeIgniter\Router\RouteCollection;
 /* @var RouteCollection $routes */
 
 // 1. Rutas Generales / Vistas Comunes
-$routes->get('/', 'Inicio::index');
-$routes->get('testdb', 'TestDB::index');
+$routes->get('/', 'InicioController::index');
+$routes->get('testdb', 'TestDBController::index');
 
 // 2. Rutas del Cliente
-$routes->get('cliente/vehiculo/(:num)', 'Vehiculos::detalle/$1');
+$routes->get('cliente/vehiculo/(:num)', 'VehiculosController::show/$1'); // Apunta a show del controlador de vehículos
 $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1');
 $routes->post('cliente/reservar/procesar', 'ClientesController::procesarReserva');
 $routes->get('cliente/resumen', 'ClientesController::resumenReserva');
 $routes->post('cliente/reservas/confirmar', 'ClientesController::confirmarReserva');
-
 
 // 3. Rutas del Administrador
 
@@ -27,18 +26,18 @@ $routes->post('usuarios/actualizar/(:num)', 'UsuariosController::actualizar/$1')
 $routes->get('usuarios/eliminar/(:num)', 'UsuariosController::eliminar/$1');
 
 // Vehículos
-$routes->get('vehiculos', 'Vehiculos::index');
-$routes->get('vehiculos/new', 'Vehiculos::new');
-$routes->post('vehiculos/create', 'Vehiculos::create');
-$routes->get('vehiculos/edit/(:num)', 'Vehiculos::edit/$1');
-$routes->post('vehiculos/update/(:num)', 'Vehiculos::update/$1');
-$routes->get('vehiculos/delete/(:num)', 'Vehiculos::delete/$1');
-$routes->get('vehiculos/(:num)', 'Vehiculos::show/$1');
+$routes->get('vehiculos', 'VehiculosController::index');
+$routes->get('vehiculos/new', 'VehiculosController::new');
+$routes->post('vehiculos/create', 'VehiculosController::create');
+$routes->get('vehiculos/edit/(:num)', 'VehiculosController::edit/$1');
+$routes->post('vehiculos/update/(:num)', 'VehiculosController::update/$1');
+$routes->get('vehiculos/delete/(:num)', 'VehiculosController::delete/$1');
+$routes->get('vehiculos/(:num)', 'VehiculosController::show/$1');
 
-// LOGIN
-$routes->get('login', 'Login::index');
-$routes->post('login/validar', 'Login::validar');
-$routes->get('logout', 'Login::logout');
+// Login y Sesión
+$routes->get('login', 'LoginController::index');
+$routes->post('login/validar', 'LoginController::validar');
+$routes->get('logout', 'LoginController::logout');
 
 // Alquileres y Devoluciones
 // $routes->get('admin/alquileres', 'AlquileresController::index');

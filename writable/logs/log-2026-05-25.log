@@ -885,3 +885,33 @@ in SYSTEMPATH\Model.php on line 152.
  5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-25 07:36:44 --> Error: Class "Config\Database" not found
+[Method: GET, Route: /]
+in SYSTEMPATH\Model.php on line 152.
+ 1 APPPATH\Controllers\Inicio.php(11): CodeIgniter\Model->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 3 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-25 07:44:03 --> Error: Class "Config\Database" not found
+[Method: GET, Route: /]
+in SYSTEMPATH\Model.php on line 152.
+ 1 APPPATH\Controllers\Inicio.php(11): CodeIgniter\Model->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 3 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-05-25 07:44:05 --> Error: Class "Config\Database" not found
+[Method: GET, Route: /]
+in SYSTEMPATH\Model.php on line 152.
+ 1 APPPATH\Controllers\Inicio.php(11): CodeIgniter\Model->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\Inicio->index()
+ 3 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Inicio))
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
