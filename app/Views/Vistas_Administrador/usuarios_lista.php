@@ -206,7 +206,7 @@
                                 <tr>
                                     <td><strong>#<?= $user['id_usuario'] ?></strong></td>
                                     <td><?= esc($user['nombre_usuario']) ?></td>
-                                    <td><?= esc($user['apellido_usuario']) ?></td>
+                                    <td><?= esc($user['nombre_usuario'] . ' ' . $user['apellido_usuario']) ?></td>
                                     <td><?= esc($user['direccion'] ?? 'No especificada') ?></td>
                                     <td><?= esc($user['telefono'] ?? 'No especificado') ?></td>
                                     <td>

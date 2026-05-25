@@ -7,7 +7,6 @@ use CodeIgniter\Router\RouteCollection;
 // 1. Rutas Generales / Vistas Comunes
 $routes->get('/', 'Inicio::index');
 $routes->get('testdb', 'TestDB::index');
-$routes->get('login', 'UsuariosController::login');
 
 // 2. Rutas del Cliente
 // $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1');
@@ -22,8 +21,6 @@ $routes->post('usuarios/guardar', 'UsuariosController::guardar');
 $routes->get('usuarios/editar/(:num)', 'UsuariosController::editar/$1');
 $routes->post('usuarios/actualizar/(:num)', 'UsuariosController::actualizar/$1');
 $routes->get('usuarios/eliminar/(:num)', 'UsuariosController::eliminar/$1');
-$routes->post('usuarios/confirmar', 'UsuariosController::confirmar'); 
-$routes->post('usuarios/guardarConfirmado', 'UsuariosController::guardarConfirmado');
 
 // Vehículos
 $routes->get('vehiculos', 'Vehiculos::index');

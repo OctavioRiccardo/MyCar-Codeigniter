@@ -142,6 +142,260 @@
         color: #047857;
         text-decoration: underline;
     }
+
+    /* Chakra UI Modal Custom Styles */
+    .chakra-modal-portal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        transition: visibility 0.2s;
+    }
+
+    .chakra-modal-portal.is-active {
+        visibility: visible;
+        transition: none;
+    }
+
+    .chakra-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.48);
+        backdrop-filter: blur(5px);
+        z-index: 1401;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .chakra-modal-portal.is-active .chakra-modal-overlay {
+        opacity: 1;
+    }
+
+    .chakra-modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1402;
+        pointer-events: none;
+    }
+
+    .chakra-modal-content {
+        background: #ffffff;
+        color: #1a202c;
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02), 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        width: 100%;
+        max-width: 448px;
+        margin: 1.5rem;
+        position: relative;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        pointer-events: auto;
+        
+        transform: scale(0.95);
+        opacity: 0;
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-in-out;
+    }
+
+    .chakra-modal-portal.is-active .chakra-modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .chakra-modal-header {
+        padding: 24px 24px 8px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
+    }
+
+    .chakra-modal-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1a202c;
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    .chakra-modal-close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        border-radius: 6px;
+        color: #4a5568;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+        outline: none;
+        padding: 0;
+    }
+
+    .chakra-modal-close-btn:hover {
+        background-color: #edf2f7;
+        color: #1a202c;
+    }
+
+    .chakra-modal-close-btn:active {
+        background-color: #e2e8f0;
+    }
+
+    .chakra-modal-body {
+        padding: 8px 24px 24px 24px;
+        color: #2d3748;
+        font-size: 1rem;
+        line-height: 1.5;
+        flex: 1;
+    }
+
+    .chakra-modal-desc {
+        color: #4a5568;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    .chakra-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 24px 24px 24px;
+    }
+
+    .chakra-btn {
+        display: inline-flex;
+        appearance: none;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        position: relative;
+        white-space: nowrap;
+        vertical-align: middle;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        width: auto;
+        line-height: 1.2;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 200ms ease;
+        height: 40px;
+        min-width: 40px;
+        font-size: 0.95rem;
+        padding-left: 16px;
+        padding-right: 16px;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+
+    .chakra-btn-outline {
+        background: transparent;
+        border-color: #cbd5e1;
+        color: #334155;
+    }
+
+    .chakra-btn-outline:hover {
+        background-color: #f8fafc;
+        border-color: #94a3b8;
+        color: #1e293b;
+    }
+
+    .chakra-btn-outline:active {
+        background-color: #f1f5f9;
+    }
+
+    .chakra-btn-solid {
+        background-color: #059669;
+        color: white;
+        box-shadow: 0 2px 4px rgba(5, 150, 105, 0.15);
+    }
+
+    .chakra-btn-solid:hover {
+        background-color: #047857;
+        box-shadow: 0 4px 8px rgba(5, 150, 105, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .chakra-btn-solid:active {
+        background-color: #065f46;
+        transform: translateY(0);
+    }
+
+    .chakra-desc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    .chakra-desc-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        background-color: #f8fafc;
+        border: 1px solid #f1f5f9;
+        border-radius: 10px;
+        transition: background-color 0.2s ease;
+    }
+
+    .chakra-desc-item:hover {
+        background-color: #f1f5f9;
+    }
+
+    .chakra-desc-icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background-color: rgba(5, 150, 105, 0.08);
+        color: #059669;
+        font-size: 1rem;
+    }
+
+    .chakra-desc-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .chakra-desc-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+    }
+
+    .chakra-desc-value {
+        font-size: 0.9rem;
+        color: #0f172a;
+        font-weight: 600;
+    }
 </style>
 
 <div class="register-container">
@@ -160,7 +414,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= site_url('usuarios/confirmar') ?>" method="post">
+        <form action="<?= $accion ?>" method="post">
 
             <!-- Nombre de Usuario -->
             <div class="form-group">
@@ -194,17 +448,17 @@
                 </div>
             </div>
 
-            <!-- Nombre y Apellido -->
+            <!-- Apellido -->
             <div class="form-group">
-                <label class="form-label">Nombre y Apellido</label>
+                <label class="form-label">Apellido</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-signature input-icon"></i>
                     <input 
                         type="text" 
-                        name="nombre_apellido" 
+                        name="apellido_usuario" 
                         class="form-input" 
-                        placeholder="ej. Juan Pérez"
-                        value="<?= old('nombre_apellido', $usuario['nombre_apellido'] ?? '') ?>"
+                        placeholder="ej. Pérez"
+                        value="<?= old('apellido_usuario', $usuario['apellido_usuario'] ?? '') ?>"
                         required
                     >
                 </div>
@@ -257,6 +511,70 @@
     </div>
 </div>
 
+<!-- Modal de Confirmación de Registro (Estilo Chakra UI) -->
+<div class="chakra-modal-portal" id="confirmModal">
+  <div class="chakra-modal-overlay" onclick="closeModal()"></div>
+  <div class="chakra-modal-container">
+    <div class="chakra-modal-content">
+      <header class="chakra-modal-header">
+        <h2 class="chakra-modal-title">Confirmar Registro</h2>
+        <button class="chakra-modal-close-btn" type="button" onclick="closeModal()" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <div class="chakra-modal-body">
+        <p class="chakra-modal-desc">Por favor, revisa que tus datos sean correctos antes de crear tu cuenta:</p>
+        
+        <div class="chakra-desc-list">
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-user-tag"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Nombre de Usuario</span>
+              <span id="modal_nombre_usuario" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-signature"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Apellido</span>
+              <span id="modal_apellido_usuario" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Dirección</span>
+              <span id="modal_direccion" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Teléfono</span>
+              <span id="modal_telefono" class="chakra-desc-value"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="chakra-modal-footer">
+        <button class="chakra-btn chakra-btn-outline" type="button" onclick="closeModal()">Corregir</button>
+        <button class="chakra-btn chakra-btn-solid" type="button" onclick="submitForm()">Registrarme</button>
+      </footer>
+    </div>
+  </div>
+</div>
+
 <?php echo view('layout/footer'); ?>
 
 <!-- JAVASCRIPT para el control del formulario -->
@@ -268,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const nombreUsuario = document.querySelector('input[name="nombre_usuario"]');
     const claveUsuario = document.querySelector('input[name="clave_usuario"]');
-    const nombreApellido = document.querySelector('input[name="nombre_apellido"]');
+    const apellidoUsuario = document.querySelector('input[name="apellido_usuario"]');
     const direccion = document.querySelector('input[name="direccion"]');
     const telefono = document.querySelector('input[name="telefono"]');
 
@@ -303,11 +621,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // =========================
-        // Nombre y Apellido
+        // Apellido
         // =========================
-        if (nombreApellido.value.trim() === '') {
-            errores.push('El nombre y apellido es obligatorio.');
-            marcarError(nombreApellido);
+        if (apellidoUsuario.value.trim() === '') {
+            errores.push('El apellido es obligatorio.');
+            marcarError(apellidoUsuario);
         }
 
         // =========================
@@ -327,13 +645,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // =========================
-        // Mostrar errores
+        // Mostrar errores o abrir modal
         // =========================
         if (errores.length > 0) {
-
             e.preventDefault();
-
             mostrarErrores(errores);
+        } else {
+            <?php if (!isset($usuario)): ?>
+                e.preventDefault();
+                document.getElementById('modal_nombre_usuario').textContent = nombreUsuario.value;
+                document.getElementById('modal_apellido_usuario').textContent = apellidoUsuario.value;
+                document.getElementById('modal_direccion').textContent = direccion.value || 'No especificada';
+                document.getElementById('modal_telefono').textContent = telefono.value || 'No especificado';
+                openModal();
+            <?php endif; ?>
         }
 
     });
@@ -389,6 +714,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         titulo.insertAdjacentElement('afterend', divError);
     }
+
+    // ====================================
+    // Funciones del Modal
+    // ====================================
+    window.openModal = function() {
+        document.getElementById('confirmModal').classList.add('is-active');
+    };
+
+    window.closeModal = function() {
+        document.getElementById('confirmModal').classList.remove('is-active');
+    };
+
+    window.submitForm = function() {
+        formulario.submit();
+    };
 
 });
 </script>
