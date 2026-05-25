@@ -33,11 +33,20 @@ $routes->get('vehiculos/edit/(:num)', 'Vehiculos::edit/$1');
 $routes->post('vehiculos/update/(:num)', 'Vehiculos::update/$1');
 $routes->get('vehiculos/delete/(:num)', 'Vehiculos::delete/$1');
 $routes->get('vehiculos/(:num)', 'Vehiculos::show/$1');
+$routes->get('cliente/vehiculo/(:num)', 'Vehiculos::detalleCliente/$1');
 
 // LOGIN
 $routes->get('login', 'Login::index');
 $routes->post('login/validar', 'Login::validar');
 $routes->get('logout', 'Login::logout');
+
+/*
+|--------------------------------------------------------------------------
+| Alquileres cliente
+|--------------------------------------------------------------------------
+*/
+$routes->post('guardar-alquiler', 'Alquileres::guardarAlquiler');
+$routes->get('mis-alquileres', 'Alquileres::mostrarAlquileres');
 
 // Alquileres y Devoluciones
 // $routes->get('admin/alquileres', 'AlquileresController::index');

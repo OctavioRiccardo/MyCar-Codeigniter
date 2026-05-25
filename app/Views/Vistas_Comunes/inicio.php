@@ -240,9 +240,10 @@
                                     <span class="precio-periodo">/por día</span>
                                 </div>
                                 
-                                <button class="btn-view-deal">
+                                <a href="<?= base_url('cliente/vehiculo/' . $vehiculo['id_vehiculo']); ?>" 
+                                class="btn-view-deal">
                                     Ver Detalle
-                                </button>
+                                </a>
                             </div>
 
                         </div>
