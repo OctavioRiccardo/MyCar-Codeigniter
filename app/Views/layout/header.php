@@ -165,7 +165,7 @@
                             <i class="fa-solid fa-circle-user"></i>
 
                             <span>
-                                Hola, <?= session()->get('nombre_usuario') ?>
+                                <?= session()->get('nombre_usuario') ?>
                             </span>
 
                         </div>
