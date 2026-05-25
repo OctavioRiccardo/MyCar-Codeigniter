@@ -804,6 +804,14 @@ body {
     border-radius: 20px;
 }
 
+.status-badge-inline {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
 /* ==========================================================================
    VEHICLE DETAIL VIEW
    ========================================================================== */

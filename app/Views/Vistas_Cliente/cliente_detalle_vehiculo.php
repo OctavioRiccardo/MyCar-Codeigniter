@@ -10,14 +10,13 @@
         <div class="detail-card">
             
             <div class="detail-header">
-                <h1 class="detail-title">
+                <h1 class="detail-title" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                     <?= esc($vehiculo['marca']) . ' ' . esc($vehiculo['modelo']) ?>
+                    <span class="status-badge-inline <?= $vehiculo['disponibilidad'] == 'disponible' ? 'available' : 'unavailable' ?>" style="font-size: 0.9rem; font-weight: 700; text-transform: uppercase;">
+                        <?= esc(ucwords(str_replace('_', ' ', $vehiculo['disponibilidad']))) ?>
+                    </span>
                 </h1>
                 <p class="detail-subtitle">
-                    <span class="status-badge <?= $vehiculo['disponibilidad'] == 'disponible' ? 'available' : 'unavailable' ?>">
-                        <?= esc($vehiculo['disponibilidad']) ?>
-                    </span>
-                    <span>•</span>
                     <span>Modelo <?= esc($vehiculo['anio']) ?></span>
                 </p>
             </div>

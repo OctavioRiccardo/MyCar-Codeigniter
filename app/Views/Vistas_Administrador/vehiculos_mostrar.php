@@ -56,8 +56,8 @@
                             <tr>
                                 <th>Disponibilidad:</th>
                                 <td>
-                                    <span class="status-badge <?= $vehiculo['disponibilidad'] == 'disponible' ? 'available' : 'unavailable' ?>">
-                                        <?= ucfirst(esc($vehiculo['disponibilidad'])) ?>
+                                    <span class="status-badge-inline <?= $vehiculo['disponibilidad'] == 'disponible' ? 'available' : 'unavailable' ?>">
+                                        <?= esc(ucwords(str_replace('_', ' ', $vehiculo['disponibilidad']))) ?>
                                     </span>
                                 </td>
                             </tr>
