@@ -2,147 +2,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-    /* Estilos inspirados en los Tokens de Diseño de Chakra UI (Paleta Esmeralda) */
-    .register-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 80vh;
-        padding: 40px 20px;
-        background-color: #f9fafb; /* gray.50 */
-        font-family: system-ui, -apple-system, sans-serif;
-    }
 
-    .register-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0; /* gray.200 */
-        border-radius: 16px; /* rounded-2xl */
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
-        padding: 40px;
-        width: 100%;
-        max-width: 520px;
-        transition: transform 0.2s ease;
-    }
-
-    .register-title {
-        font-size: 1.85rem;
-        font-weight: 800;
-        color: #064e3b; /* emerald.900 */
-        text-align: center;
-        margin-bottom: 8px;
-    }
-
-    .register-subtitle {
-        font-size: 0.95rem;
-        color: #64748b; /* gray.500 */
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    /* Mensajes de error */
-    .error-box {
-        background-color: #fef2f2; /* red.50 */
-        border: 1px solid #fecaca; /* red.200 */
-        border-radius: 8px;
-        padding: 12px 16px;
-        color: #b91c1c; /* red.700 */
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-    }
-
-    .error-box ul {
-        margin-left: 20px;
-        list-style-type: disc;
-    }
-
-    /* Formularios y Inputs estilo Chakra UI */
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-label {
-        display: block;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #334155; /* gray.700 */
-        margin-bottom: 6px;
-    }
-
-    .input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .input-icon {
-        position: absolute;
-        left: 12px;
-        color: #94a3b8; /* gray.400 */
-        font-size: 1rem;
-    }
-
-    .form-input {
-        width: 100%;
-        padding: 10px 12px 10px 40px;
-        font-size: 0.95rem;
-        border: 1px solid #cbd5e1; /* gray.300 */
-        border-radius: 8px;
-        color: #0f172a;
-        background-color: #ffffff;
-        transition: all 0.2s ease;
-    }
-
-    .form-input:focus {
-        outline: none;
-        border-color: #059669; /* emerald.600 */
-        box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); /* anillo focus esmeralda */
-    }
-
-    /* Botón con gradiente de Chakra UI */
-    .btn-register-submit {
-        width: 100%;
-        background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-        color: white;
-        font-weight: 700;
-        font-size: 1rem;
-        padding: 12px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
-        transition: all 0.2s ease;
-        margin-top: 10px;
-    }
-
-    .btn-register-submit:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(5, 150, 105, 0.4);
-    }
-
-    .btn-register-submit:active {
-        transform: translateY(1px);
-    }
-
-    .footer-links {
-        margin-top: 24px;
-        text-align: center;
-        font-size: 0.9rem;
-        color: #64748b;
-    }
-
-    .footer-links a {
-        color: #059669;
-        font-weight: 600;
-        text-decoration: none;
-        transition: color 0.15s ease;
-    }
-
-    .footer-links a:hover {
-        color: #047857;
-        text-decoration: underline;
-    }
-</style>
 
 <div class="register-container">
     <div class="register-card">
@@ -160,7 +20,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= site_url('usuarios/confirmar') ?>" method="post">
+        <form action="<?= $accion ?>" method="post">
 
             <!-- Nombre de Usuario -->
             <div class="form-group">
@@ -194,17 +54,17 @@
                 </div>
             </div>
 
-            <!-- Nombre y Apellido -->
+            <!-- Apellido -->
             <div class="form-group">
-                <label class="form-label">Nombre y Apellido</label>
+                <label class="form-label">Apellido</label>
                 <div class="input-wrapper">
                     <i class="fa-solid fa-signature input-icon"></i>
                     <input 
                         type="text" 
-                        name="nombre_apellido" 
+                        name="apellido_usuario" 
                         class="form-input" 
-                        placeholder="ej. Juan Pérez"
-                        value="<?= old('nombre_apellido', $usuario['nombre_apellido'] ?? '') ?>"
+                        placeholder="ej. Pérez"
+                        value="<?= old('apellido_usuario', $usuario['apellido_usuario'] ?? '') ?>"
                         required
                     >
                 </div>
@@ -257,6 +117,70 @@
     </div>
 </div>
 
+<!-- Modal de Confirmación de Registro (Estilo Chakra UI) -->
+<div class="chakra-modal-portal" id="confirmModal">
+  <div class="chakra-modal-overlay" onclick="closeModal()"></div>
+  <div class="chakra-modal-container">
+    <div class="chakra-modal-content">
+      <header class="chakra-modal-header">
+        <h2 class="chakra-modal-title">Confirmar Registro</h2>
+        <button class="chakra-modal-close-btn" type="button" onclick="closeModal()" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+      <div class="chakra-modal-body">
+        <p class="chakra-modal-desc">Por favor, revisa que tus datos sean correctos antes de crear tu cuenta:</p>
+        
+        <div class="chakra-desc-list">
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-user-tag"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Nombre de Usuario</span>
+              <span id="modal_nombre_usuario" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-signature"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Apellido</span>
+              <span id="modal_apellido_usuario" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Dirección</span>
+              <span id="modal_direccion" class="chakra-desc-value"></span>
+            </div>
+          </div>
+
+          <div class="chakra-desc-item">
+            <div class="chakra-desc-icon-wrapper">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="chakra-desc-content">
+              <span class="chakra-desc-label">Teléfono</span>
+              <span id="modal_telefono" class="chakra-desc-value"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="chakra-modal-footer">
+        <button class="chakra-btn chakra-btn-outline" type="button" onclick="closeModal()">Corregir</button>
+        <button class="chakra-btn chakra-btn-solid" type="button" onclick="submitForm()">Registrarme</button>
+      </footer>
+    </div>
+  </div>
+</div>
+
 <?php echo view('layout/footer'); ?>
 
 <!-- JAVASCRIPT para el control del formulario -->
@@ -268,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const nombreUsuario = document.querySelector('input[name="nombre_usuario"]');
     const claveUsuario = document.querySelector('input[name="clave_usuario"]');
-    const nombreApellido = document.querySelector('input[name="nombre_apellido"]');
+    const apellidoUsuario = document.querySelector('input[name="apellido_usuario"]');
     const direccion = document.querySelector('input[name="direccion"]');
     const telefono = document.querySelector('input[name="telefono"]');
 
@@ -303,11 +227,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // =========================
-        // Nombre y Apellido
+        // Apellido
         // =========================
-        if (nombreApellido.value.trim() === '') {
-            errores.push('El nombre y apellido es obligatorio.');
-            marcarError(nombreApellido);
+        if (apellidoUsuario.value.trim() === '') {
+            errores.push('El apellido es obligatorio.');
+            marcarError(apellidoUsuario);
         }
 
         // =========================
@@ -327,13 +251,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // =========================
-        // Mostrar errores
+        // Mostrar errores o abrir modal
         // =========================
         if (errores.length > 0) {
-
             e.preventDefault();
-
             mostrarErrores(errores);
+        } else {
+            <?php if (!isset($usuario)): ?>
+                e.preventDefault();
+                document.getElementById('modal_nombre_usuario').textContent = nombreUsuario.value;
+                document.getElementById('modal_apellido_usuario').textContent = apellidoUsuario.value;
+                document.getElementById('modal_direccion').textContent = direccion.value || 'No especificada';
+                document.getElementById('modal_telefono').textContent = telefono.value || 'No especificado';
+                openModal();
+            <?php endif; ?>
         }
 
     });
@@ -389,6 +320,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         titulo.insertAdjacentElement('afterend', divError);
     }
+
+    // ====================================
+    // Funciones del Modal
+    // ====================================
+    window.openModal = function() {
+        document.getElementById('confirmModal').classList.add('is-active');
+    };
+
+    window.closeModal = function() {
+        document.getElementById('confirmModal').classList.remove('is-active');
+    };
+
+    window.submitForm = function() {
+        formulario.submit();
+    };
 
 });
 </script>

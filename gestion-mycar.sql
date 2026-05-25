@@ -61,6 +61,16 @@ ALTER TABLE `vehiculos`
   MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `alquileres`
-  ADD CONSTRAINT `fk_alquiler_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_alquiler_vehiculo` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_alquiler_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_alquiler_vehiculo` FOREIGN KEY (`id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+--
+-- Volcado de datos para la tabla `vehiculos`
+--
+
+INSERT INTO `vehiculos` (`id_vehiculo`, `tipo_vehiculo`, `imagen`, `marca`, `modelo`, `anio`, `numero_plazas`, `motor`, `kilometraje`, `precio_alquiler_dia`, `disponibilidad`, `deleted_at`) VALUES
+(1, 'auto', 'assets/img/auto_corolla.png', 'Toyota', 'Corolla', 2022, 5, '1.8L', 15000, 45000, 'disponible', NULL),
+(2, 'moto', 'assets/img/moto_honda.png', 'Honda', 'CB500X', 2021, 2, '500cc', 8500, 25000, 'disponible', NULL),
+(3, 'camioneta', 'assets/img/camioneta_hilux.png', 'Toyota', 'Hilux', 2023, 5, '2.8L Diesel', 12000, 60000, 'disponible', NULL);
+
 COMMIT;

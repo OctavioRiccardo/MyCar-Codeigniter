@@ -16,6 +16,10 @@ class UsuariosController extends BaseController
     // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $data['usuarios'] = $this->usuarios->findAll();
 
         return view('Vistas_Administrador/usuarios_lista', $data);
@@ -31,51 +35,6 @@ class UsuariosController extends BaseController
         ]);
     }
 
-    // GUARDAR EL USUARIO AL CONFIRMAR
-    public function confirmar()
-    {
-        $usuario = [
-            'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
-            'password'    => $this->request->getPost('clave_usuario'),
-            'rol'              => 'cliente',
-            'apellido_usuario'  => $this->request->getPost('nombre_apellido'),
-            'direccion'        => $this->request->getPost('direccion'),
-            'telefono'         => $this->request->getPost('telefono'),
-        ];
-
-        // Guardar temporalmente en sesión
-        session()->set('usuario_temp', $usuario);
-
-        return view('usuarios/confirmar_usuario', [
-            'usuario' => $usuario
-        ]);
-    }
-
-    public function guardarConfirmado()
-    {
-        $usuario = session()->get('usuario_temp');
-
-        if (!$usuario) {
-            return redirect()->to('/usuarios/create');
-        }
-
-        $model = new UsuariosModel();
-
-        $model->save([
-            'nombre_usuario'  => $usuario['nombre_usuario'],
-            'password'   => password_hash($usuario['password'], PASSWORD_DEFAULT),
-            'rol'              => 'cliente',
-            'apellido_usuario' => $usuario['apellido_usuario'],
-            'direccion'       => $usuario['direccion'],
-            'telefono'        => $usuario['telefono'],
-            'fecha_alta'       => date('Y-m-d')
-        ]);
-
-        // Eliminar sesión temporal
-        session()->remove('usuario_temp');
-
-        return redirect()->to('/');
-    }
 
     // GUARDAR NUEVO USUARIO
     public function guardar()
@@ -84,8 +43,7 @@ class UsuariosController extends BaseController
         $rules = [
             'nombre_usuario'  => 'required|min_length[3]|max_length[50]|is_unique[usuarios.nombre_usuario]',
             'clave_usuario'   => 'required|min_length[6]|max_length[255]',
-            'rol'              => 'cliente',
-            'nombre_apellido' => 'required|max_length[100]',
+            'apellido_usuario' => 'required|max_length[100]',
             'direccion'       => 'permit_empty|max_length[100]',
             'telefono'        => 'permit_empty|max_length[20]',
         ];
@@ -112,13 +70,22 @@ class UsuariosController extends BaseController
                 ->with('errors', $this->usuarios->errors());
         }
 
-        return redirect()->to('/usuarios')
-            ->with('mensaje', 'Usuario creado correctamente.');
+        if (session()->get('logueado')) {
+            return redirect()->to('/usuarios')
+                ->with('mensaje', 'Usuario creado correctamente.');
+        }
+
+        return redirect()->to('/login')
+            ->with('mensaje', 'Registro exitoso. Por favor, inicia sesión.');
     }
 
     // FORMULARIO EDICIÓN
     public function editar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
@@ -127,8 +94,7 @@ class UsuariosController extends BaseController
             );
         }
 
-        // Mapeamos el campo de la BD al nombre esperado por la vista del formulario
-        $usuario['nombre_apellido'] = $usuario['apellido_usuario'];
+        // Los campos ya vienen como nombre_usuario y apellido_usuario de la base de datos
 
         return view('Vistas_Comunes/registro', [
             'titulo' => 'Editar Usuario',
@@ -140,6 +106,10 @@ class UsuariosController extends BaseController
     // ACTUALIZAR USUARIO
     public function actualizar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
@@ -151,7 +121,7 @@ class UsuariosController extends BaseController
         // Reglas de validación para la edición
         $rules = [
             'nombre_usuario'  => "required|min_length[3]|max_length[50]|is_unique[usuarios.nombre_usuario,id_usuario,{$id}]",
-            'nombre_apellido' => 'required|max_length[100]',
+            'apellido_usuario' => 'required|max_length[100]',
             'direccion'       => 'permit_empty|max_length[100]',
             'telefono'        => 'permit_empty|max_length[20]',
         ];
@@ -170,7 +140,7 @@ class UsuariosController extends BaseController
         $datos = [
             'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
             'rol'              => $this->request->getPost('rol') ?? $usuario['rol'],
-            'apellido_usuario' => $this->request->getPost('nombre_apellido'),
+            'apellido_usuario' => $this->request->getPost('apellido_usuario'),
             'direccion'        => $this->request->getPost('direccion'),
             'telefono'         => $this->request->getPost('telefono')
         ];
@@ -196,6 +166,10 @@ class UsuariosController extends BaseController
     // ELIMINAR USUARIO (Baja Lógica integrada)
     public function eliminar($id)
     {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
         $usuario = $this->usuarios->find($id);
 
         if (!$usuario) {
@@ -211,9 +185,4 @@ class UsuariosController extends BaseController
             ->with('mensaje', 'Usuario dado de baja correctamente.');
     }
 
-    // PANTALLA DE LOGIN
-    public function login()
-    {
-        return view('Vistas_Comunes/login');
-    }
 }

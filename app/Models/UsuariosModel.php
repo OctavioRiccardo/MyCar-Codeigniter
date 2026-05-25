@@ -47,7 +47,7 @@ class UsuariosModel extends Model
             'in_list' => 'El rol debe ser administrador o cliente.'
         ],
         'apellido_usuario' => [
-            'required' => 'El nombre y apellido es obligatorio.'
+            'required' => 'El apellido es obligatorio.'
         ]
     ];
 
