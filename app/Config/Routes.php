@@ -39,6 +39,14 @@ $routes->get('login', 'LoginController::index');
 $routes->post('login/validar', 'LoginController::validar');
 $routes->get('logout', 'LoginController::logout');
 
+// Alquileres
+$routes->get(
+    'mis-alquileres/resumen/(:num)',
+    'Alquileres::verResumen/$1'
+);
+$routes->get('mis-alquileres', 'Alquileres::mostrarAlquileres');
+//$routes->get('mis-alquileres/resumen/(:num)', 'Alquileres::verResumen/$1');
+
 // Alquileres y Devoluciones
 // $routes->get('admin/alquileres', 'AlquileresController::index');
 // $routes->post('admin/alquileres/aprobar/(:num)', 'AlquileresController::aprobar/$1');

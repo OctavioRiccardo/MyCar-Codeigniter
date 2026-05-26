@@ -74,19 +74,19 @@
                                     <i class="fa-solid fa-user"></i>
                                 </span>
 
-                                <span>Ver Perfil</span>
+                                <span>Mi Perfil</span>
 
                             </a>
 
                             <!-- Ver Alquileres -->
-                            <a href="<?= site_url('alquileres') ?>"
+                            <a href="<?= site_url('mis-alquileres') ?>"
                                 class="button btn-login">
 
                                 <span class="icon">
                                     <i class="fa-solid fa-car-side"></i>
                                 </span>
 
-                                <span>Ver Alquileres</span>
+                                <span>Mis Alquileres</span>
 
                             </a>
 

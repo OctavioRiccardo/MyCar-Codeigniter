@@ -112,8 +112,82 @@ class Alquileres extends Controller
         $data['alquileres'] = $alquileres;
 
         return view(
-            'Vistas_Cliente/cliente_alquileres',
+            'Vistas_Cliente/cliente_ver_alquileres',
             $data
         );
     }
+
+/*
+|--------------------------------------------------------------------------
+| Ver resumen completo del alquiler
+|--------------------------------------------------------------------------
+*/
+public function verResumen($idAlquiler)
+{
+    $idUsuario = session()->get('id_usuario');
+
+    // Validar sesión
+    if (!$idUsuario) {
+
+        return redirect()->to('/login');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Obtener alquiler + vehículo
+    |--------------------------------------------------------------------------
+    */
+    $alquiler = $this->alquileresModel
+
+        ->select('
+            alquileres.*,
+
+            vehiculos.marca,
+            vehiculos.modelo,
+            vehiculos.imagen,
+            vehiculos.tipo_vehiculo,
+            vehiculos.precio_alquiler_dia
+        ')
+
+        ->join(
+            'vehiculos',
+            'vehiculos.id_vehiculo = alquileres.id_vehiculo'
+        )
+
+        ->where('alquileres.id_alquiler', $idAlquiler)
+
+        ->where('alquileres.id_usuario', $idUsuario)
+
+        ->first();
+
+    // Validar alquiler existente
+    if (!$alquiler) {
+
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Calcular total
+    |--------------------------------------------------------------------------
+    */
+    $precioTotal =
+        $alquiler['cantidad_dias'] *
+        $alquiler['precio_alquiler_dia'];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enviar datos
+    |--------------------------------------------------------------------------
+    */
+    $data['alquiler'] = $alquiler;
+
+    $data['precioTotal'] = $precioTotal;
+
+    return view(
+        'Vistas_Cliente/cliente_ver_resumen',
+        $data
+    );
+}
+    
 }
