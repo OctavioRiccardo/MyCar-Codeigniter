@@ -14,6 +14,7 @@ class AlquileresModel extends Model
     protected $allowedFields = [
         'fecha_desde',
         'cantidad_dias',
+        'metodopago',
         'fecha_hasta',
         'id_vehiculo',
         'id_usuario',
