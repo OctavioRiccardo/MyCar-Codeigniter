@@ -13,6 +13,16 @@ class UsuariosController extends BaseController
         $this->usuarios = new UsuariosModel();
     }
 
+    // PANEL ADMINISTRADOR
+    public function administrador()
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        return view('Vistas_Administrador/administrador_inicio');
+    }
+
     // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()
     {
@@ -20,7 +30,11 @@ class UsuariosController extends BaseController
             return redirect()->to('/');
         }
 
-        $data['usuarios'] = $this->usuarios->findAll();
+        $data['usuarios'] = $this->usuarios
+            ->where('rol', 'cliente')
+            ->findAll();
+
+        //$data['usuarios'] = $this->usuarios->findAll();
 
         return view('Vistas_Administrador/usuarios_lista', $data);
     }

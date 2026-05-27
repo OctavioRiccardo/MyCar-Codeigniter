@@ -1,223 +1,155 @@
-<?php echo view('layout/header'); ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - MyCar</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 
-<style>
-    /* Estilos inspirados en Chakra UI (Paleta Esmeralda) */
-    .admin-section {
-        padding: 40px 20px;
-        background-color: #f9fafb; /* gray.50 */
-        min-height: 80vh;
-        font-family: system-ui, -apple-system, sans-serif;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .admin-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0; /* gray.200 */
-        border-radius: 16px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        padding: 30px;
-        margin-top: 20px;
-    }
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 
-    .admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
+    <style>
+        /* Un pequeño toque extra interactivo para las tarjetas */
+        .admin-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
 
-    .admin-title {
-        font-size: 1.75rem;
-        font-weight: 800;
-        color: #064e3b; /* emerald.900 */
-    }
+<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+                <a class="navbar-item has-text-weight-bold is-size-4" href="<?= base_url('/administrador') ?>">
+                    <i class="fa-solid fa-car-side mr-2"></i> MyCar Admin
+                </a>
+        </div>
 
-    /* Tabla Chakra UI */
-    .table-container {
-        overflow-x: auto;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-    }
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <span class="has-text-weight-semibold">
+                    <i class="fa-solid fa-user-shield mr-1"></i> <?= session()->get('nombre_usuario') ?>
+                </span>
+            </div>
+            <div class="navbar-item">
+                <a href="<?= base_url('logout') ?>" class="button is-danger is-light is-small">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
 
-    .chakra-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: 0.95rem;
-    }
-
-    .chakra-table th {
-        background-color: #f8fafc; /* slate.50 */
-        color: #475569; /* slate.600 */
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 14px 20px;
-        border-bottom: 2px solid #e2e8f0;
-    }
-
-    .chakra-table td {
-        padding: 16px 20px;
-        border-bottom: 1px solid #e2e8f0;
-        color: #1e293b; /* slate.800 */
-    }
-
-    .chakra-table tr:hover {
-        background-color: #f1f5f9;
-    }
-
-    /* Badges de Disponibilidad */
-    .status-badge {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .status-badge.available {
-        background-color: #ecfdf5; /* emerald.50 */
-        color: #059669; /* emerald.600 */
-    }
-
-    .status-badge.unavailable {
-        background-color: #fef2f2; /* red.50 */
-        color: #dc2626; /* red.600 */
-    }
-
-    /* Botón Primary Gradiente */
-    .btn-chakra-primary {
-        background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-        color: white;
-        font-weight: 700;
-        padding: 10px 20px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
-        transition: all 0.2s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .btn-chakra-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(5, 150, 105, 0.4);
-        color: white;
-    }
-
-    /* Grupo de Acciones */
-    .actions-group {
-        display: flex;
-        gap: 8px;
-    }
-
-    .btn-action {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .btn-action.show {
-        background-color: #f0fdf4; /* emerald.50 */
-        color: #059669;
-    }
-
-    .btn-action.show:hover {
-        background-color: #d1fae5; /* emerald.100 */
-    }
-
-    .btn-action.edit {
-        background-color: #fef3c7; /* amber.100 */
-        color: #d97706;
-    }
-
-    .btn-action.edit:hover {
-        background-color: #fde68a;
-    }
-
-    .btn-action.delete {
-        background-color: #fee2e2; /* red.100 */
-        color: #dc2626;
-    }
-
-    .btn-action.delete:hover {
-        background-color: #fca5a5;
-    }
-</style>
-
-<div class="admin-section">
+<section class="section has-background-light" style="min-height: 100vh;">
     <div class="container">
         
-        <div class="admin-card">
+        <div class="box p-5">
             
-            <div class="admin-header">
-                <h1 class="admin-title">Administración de Vehículos</h1>
-                <a href="<?= site_url('vehiculos/new') ?>" class="btn-chakra-primary">
-                    <i class="fa-solid fa-car-side"></i> Registrar Vehículo
-                </a>
+            <div class="columns is-vcentered mb-5">
+                <div class="column">
+                    <h1 class="title is-3 has-text-dark mb-1">
+                        <i class="fa-solid fa-car has-text-link mr-2"></i>Administración de Vehículos
+                    </h1>
+                    <h2 class="subtitle is-6 has-text-grey">
+                        Gestión de flota, disponibilidad, kilometraje y tarifas diarias de MyCar.
+                    </h2>
+                </div>
+                <div class="column is-narrow">
+                    <a href="<?= site_url('vehiculos/new') ?>" class="button is-link">
+                        <span class="icon">
+                            <i class="fa-solid fa-car-side"></i>
+                        </span>
+                        <span>Registrar Vehículo</span>
+                    </a>
+                </div>
             </div>
 
             <div class="table-container">
-                <table class="chakra-table">
+                <table class="table is-hoverable is-striped is-fullwidth">
                     <thead>
-                        <tr>
-                            <th>ID</th>
+                        <tr class="has-background-white-ter">
+                            <th class="has-text-grey">ID</th>
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Año</th>
                             <th>Tipo</th>
-                            <th>Plazas</th>
+                            <th class="has-text-centered">Plazas</th>
                             <th>Motor</th>
                             <th>Kilometraje</th>
                             <th>Precio/Día</th>
-                            <th>Disponibilidad</th>
-                            <th>Acciones</th>
+                            <th class="has-text-centered">Disponibilidad</th>
+                            <th class="has-text-centered">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if(!empty($vehiculos)): ?>
                             <?php foreach($vehiculos as $v): ?>
                                 <tr>
-                                    <td><strong>#<?= $v['id_vehiculo'] ?></strong></td>
-                                    <td><?= esc($v['marca']) ?></td>
-                                    <td><?= esc($v['modelo']) ?></td>
-                                    <td><?= esc($v['anio']) ?></td>
-                                    <td><span style="font-weight:600; color:#475569;"><?= ucfirst(esc($v['tipo_vehiculo'])) ?></span></td>
-                                    <td><?= esc($v['numero_plazas']) ?></td>
-                                    <td><?= esc($v['motor']) ?></td>
-                                    <td><?= number_format($v['kilometraje'], 0, ',', '.') ?> KM</td>
-                                    <td><strong>$<?= number_format($v['precio_alquiler_dia'], 0, ',', '.') ?></strong></td>
-                                    <td>
-                                        <span class="status-badge <?= $v['disponibilidad'] == 'disponible' ? 'available' : 'unavailable' ?>">
-                                            <?= ucfirst(esc($v['disponibilidad'])) ?>
+                                    <td class="vertical-center">
+                                        <span class="tag is-light is-normal has-text-weight-bold">
+                                            #<?= $v['id_vehiculo'] ?>
                                         </span>
                                     </td>
-                                    <td>
-                                        <div class="actions-group">
-                                            <a href="<?= site_url('vehiculos/'.$v['id_vehiculo']) ?>" class="btn-action show">
-                                                <i class="fa-solid fa-eye"></i> Ver
+                                    <td class="has-text-weight-semibold vertical-center">
+                                        <?= esc($v['marca']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <?= esc($v['modelo']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <?= esc($v['anio']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <span class="tag is-white has-text-weight-semibold has-text-grey-dark">
+                                            <?= ucfirst(esc($v['tipo_vehiculo'])) ?>
+                                        </span>
+                                    </td>
+                                    <td class="has-text-centered vertical-center">
+                                        <?= esc($v['numero_plazas']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <span class="is-size-7 code-text"><?= esc($v['motor']) ?></span>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <?= number_format($v['kilometraje'], 0, ',', '.') ?> KM
+                                    </td>
+                                    <td class="vertical-center has-text-weight-bold has-text-dark">
+                                        $<?= number_format($v['precio_alquiler_dia'], 0, ',', '.') ?>
+                                    </td>
+                                    <td class="has-text-centered vertical-center">
+                                        <?php if($v['disponibilidad'] == 'disponible'): ?>
+                                            <span class="tag is-success is-light has-text-weight-bold is-uppercase">
+                                                <i class="fa-solid fa-circle-check mr-1"></i> Disponible
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="tag is-danger is-light has-text-weight-bold is-uppercase">
+                                                <i class="fa-solid fa-circle-xmark mr-1"></i> No Disponible
+                                            </span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="has-text-centered vertical-center">
+                                        <div class="buttons is-centered are-small">
+                                            <a href="<?= site_url('vehiculos/'.$v['id_vehiculo']) ?>" class="button is-info is-light has-text-weight-bold">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </span>
+                                                <span>Ver</span>
                                             </a>
-                                            <a href="<?= site_url('vehiculos/edit/'.$v['id_vehiculo']) ?>" class="btn-action edit">
-                                                <i class="fa-solid fa-pen-to-square"></i> Editar
+                                            <a href="<?= site_url('vehiculos/edit/'.$v['id_vehiculo']) ?>" class="button is-warning is-light has-text-weight-bold">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </span>
+                                                <span>Editar</span>
                                             </a>
-                                            <a href="<?= site_url('vehiculos/delete/'.$v['id_vehiculo']) ?>" class="btn-action delete" onclick="return confirm('¿Seguro que desea dar de baja lógica a este vehículo?')">
-                                                <i class="fa-solid fa-trash-can"></i> Baja
+                                            <a href="<?= site_url('vehiculos/delete/'.$v['id_vehiculo']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="return confirm('¿Seguro que desea dar de baja lógica a este vehículo?')">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </span>
+                                                <span>Baja</span>
                                             </a>
                                         </div>
                                     </td>
@@ -225,8 +157,11 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="11" style="text-align: center; color: #94a3b8; padding: 30px;">
-                                    No hay vehículos registrados.
+                                <td colspan="11" class="has-text-centered has-text-grey-light py-6">
+                                    <span class="icon is-large block mb-2">
+                                        <i class="fa-solid fa-car-burst fa-2x"></i>
+                                    </span>
+                                    <p>No hay vehículos registrados en la plataforma.</p>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -237,6 +172,18 @@
         </div>
 
     </div>
-</div>
+</section>
+
+<style>
+    .table td.vertical-center {
+        vertical-align: middle;
+    }
+    .code-text {
+        font-family: monospace;
+        background-color: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+</style>
 
 <?php echo view('layout/footer'); ?>

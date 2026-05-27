@@ -117,77 +117,136 @@ class Alquileres extends Controller
         );
     }
 
-/*
-|--------------------------------------------------------------------------
-| Ver resumen completo del alquiler
-|--------------------------------------------------------------------------
-*/
-public function verResumen($idAlquiler)
-{
-    $idUsuario = session()->get('id_usuario');
+    /*
+    |--------------------------------------------------------------------------
+    | Ver resumen completo del alquiler
+    |--------------------------------------------------------------------------
+    */
+    public function verResumen($idAlquiler)
+    {
+        $idUsuario = session()->get('id_usuario');
 
-    // Validar sesión
-    if (!$idUsuario) {
+        // Validar sesión
+        if (!$idUsuario) {
 
-        return redirect()->to('/login');
+            return redirect()->to('/login');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Obtener alquiler + vehículo
+        |--------------------------------------------------------------------------
+        */
+        $alquiler = $this->alquileresModel
+
+            ->select('
+                alquileres.*,
+
+                vehiculos.marca,
+                vehiculos.modelo,
+                vehiculos.imagen,
+                vehiculos.tipo_vehiculo,
+                vehiculos.precio_alquiler_dia
+            ')
+
+            ->join(
+                'vehiculos',
+                'vehiculos.id_vehiculo = alquileres.id_vehiculo'
+            )
+
+            ->where('alquileres.id_alquiler', $idAlquiler)
+
+            ->where('alquileres.id_usuario', $idUsuario)
+
+            ->first();
+
+        // Validar alquiler existente
+        if (!$alquiler) {
+
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Calcular total
+        |--------------------------------------------------------------------------
+        */
+        $precioTotal =
+            $alquiler['cantidad_dias'] *
+            $alquiler['precio_alquiler_dia'];
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enviar datos
+        |--------------------------------------------------------------------------
+        */
+        $data['alquiler'] = $alquiler;
+
+        $data['precioTotal'] = $precioTotal;
+
+        return view(
+            'Vistas_Cliente/cliente_ver_resumen',
+            $data
+        );
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Obtener alquiler + vehículo
-    |--------------------------------------------------------------------------
-    */
-    $alquiler = $this->alquileresModel
-
-        ->select('
-            alquileres.*,
-
-            vehiculos.marca,
-            vehiculos.modelo,
-            vehiculos.imagen,
-            vehiculos.tipo_vehiculo,
-            vehiculos.precio_alquiler_dia
-        ')
-
-        ->join(
-            'vehiculos',
-            'vehiculos.id_vehiculo = alquileres.id_vehiculo'
-        )
-
-        ->where('alquileres.id_alquiler', $idAlquiler)
-
-        ->where('alquileres.id_usuario', $idUsuario)
-
-        ->first();
-
-    // Validar alquiler existente
-    if (!$alquiler) {
-
-        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Calcular total
-    |--------------------------------------------------------------------------
-    */
-    $precioTotal =
-        $alquiler['cantidad_dias'] *
-        $alquiler['precio_alquiler_dia'];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Enviar datos
-    |--------------------------------------------------------------------------
-    */
-    $data['alquiler'] = $alquiler;
-
-    $data['precioTotal'] = $precioTotal;
-
-    return view(
-        'Vistas_Cliente/cliente_ver_resumen',
-        $data
-    );
-}
     
+    /*
+    |--------------------------------------------------------------------------
+    | Mostrar TODOS los alquileres (Administrador)
+    |--------------------------------------------------------------------------
+    */
+    public function listarAlquileresAdmin()
+    {
+        // Validar sesión
+        if (!session()->get('logueado')) {
+
+            return redirect()->to('/login');
+        }
+
+        // Validar rol administrador
+        if (session()->get('rol') != 'administrador') {
+
+            return redirect()->to('/');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Obtener alquileres completos
+        |--------------------------------------------------------------------------
+        */
+        $alquileres = $this->alquileresModel
+
+            ->select('
+                alquileres.*,
+
+                vehiculos.marca,
+                vehiculos.modelo,
+                vehiculos.tipo_vehiculo,
+
+                usuarios.nombre_usuario,
+                usuarios.apellido_usuario
+            ')
+
+            ->join(
+                'vehiculos',
+                'vehiculos.id_vehiculo = alquileres.id_vehiculo'
+            )
+
+            ->join(
+                'usuarios',
+                'usuarios.id_usuario = alquileres.id_usuario'
+            )
+
+            ->orderBy('alquileres.id_alquiler', 'DESC')
+
+            ->findAll();
+
+        $data['alquileres'] = $alquileres;
+
+        return view(
+            'Vistas_Administrador/alquileres_lista',
+            $data
+        );
+    }
+
 }

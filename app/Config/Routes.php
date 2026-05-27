@@ -39,6 +39,14 @@ $routes->get('login', 'LoginController::index');
 $routes->post('login/validar', 'LoginController::validar');
 $routes->get('logout', 'LoginController::logout');
 
+// ADMINISTRADOR
+$routes->get('/admin', 'UsuariosController::administrador');
+$routes->get('/administrador', 'AdministradorController::index');
+$routes->get(
+    '/administrador/alquileres',
+    'Alquileres::listarAlquileresAdmin'
+);
+
 // Alquileres
 $routes->get(
     'mis-alquileres/resumen/(:num)',
