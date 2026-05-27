@@ -2,8 +2,11 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>MyCar - Alquiler de Vehículos</title>
 
@@ -15,8 +18,10 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Estilos Globales de MyCar (Unificados) -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+    <!-- CSS Global -->
+    <link rel="stylesheet"
+        href="<?= base_url('assets/css/style.css') ?>">
+
 </head>
 
 <body>
@@ -41,13 +46,14 @@
 
         </div>
 
-        <!-- Botones -->
+        <!-- Menú -->
         <div class="navbar-menu is-active">
 
             <div class="navbar-end">
 
                 <div class="navbar-item">
 
+                    <!-- Usuario Logueado -->
                     <?php if(session()->get('logueado')): ?>
 
                         <div class="user-session">
@@ -62,11 +68,31 @@
 
                     <?php endif; ?>
 
+                    <!-- Botones -->
                     <div class="buttons">
 
-                        <?php if(session()->get('logueado')): ?>
+                        <!-- ADMINISTRADOR -->
+                        <?php if(
+                            session()->get('logueado') &&
+                            session()->get('rol') == 'administrador'
+                        ): ?>
 
-                            <!-- Ver Perfil -->
+                            <!-- Cerrar Sesión -->
+                            <a href="<?= site_url('logout') ?>"
+                                class="button btn-login">
+
+                                <span class="icon">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </span>
+
+                                <span>Cerrar Sesión</span>
+
+                            </a>
+
+                        <!-- CLIENTE -->
+                        <?php elseif(session()->get('logueado')): ?>
+
+                            <!-- Mi Perfil -->
                             <a href="<?= site_url('perfil') ?>"
                                 class="button btn-login">
 
@@ -78,7 +104,7 @@
 
                             </a>
 
-                            <!-- Ver Alquileres -->
+                            <!-- Mis Alquileres -->
                             <a href="<?= site_url('mis-alquileres') ?>"
                                 class="button btn-login">
 
@@ -101,7 +127,11 @@
                                 <span>Cerrar Sesión</span>
 
                             </a>
+
+                        <!-- VISITANTE -->
                         <?php else: ?>
+
+                            <!-- Iniciar Sesión -->
                             <a href="<?= site_url('login') ?>"
                                 class="button btn-login">
 
@@ -113,6 +143,7 @@
 
                             </a>
 
+                            <!-- Registrarse -->
                             <a href="<?= site_url('usuarios/crear') ?>"
                                 class="button btn-register">
 
@@ -123,6 +154,7 @@
                                 <span>Registrarse</span>
 
                             </a>
+
                         <?php endif; ?>
 
                     </div>
@@ -133,9 +165,8 @@
 
         </div>
 
-        </div>
-
     </nav>
+
 </body>
 
 </html>

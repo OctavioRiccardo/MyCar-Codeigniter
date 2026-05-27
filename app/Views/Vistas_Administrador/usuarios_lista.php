@@ -1,227 +1,147 @@
-<?php echo view('layout/header'); ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - MyCar</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 
-<style>
-    /* Estilos inspirados en Chakra UI (Paleta Esmeralda) */
-    .admin-section {
-        padding: 40px 20px;
-        background-color: #f9fafb; /* gray.50 */
-        min-height: 80vh;
-        font-family: system-ui, -apple-system, sans-serif;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .admin-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0; /* gray.200 */
-        border-radius: 16px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        padding: 30px;
-        margin-top: 20px;
-    }
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 
-    .admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
+    <style>
+        /* Un pequeño toque extra interactivo para las tarjetas */
+        .admin-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
 
-    .admin-title {
-        font-size: 1.75rem;
-        font-weight: 800;
-        color: #064e3b; /* emerald.900 */
-    }
+<nav class="navbar is-link" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+                <a class="navbar-item has-text-weight-bold is-size-4" href="<?= base_url('/administrador') ?>">
+                    <i class="fa-solid fa-car-side mr-2"></i> MyCar Admin
+                </a>
+        </div>
 
-    /* Notificación de Éxito */
-    .notify-box {
-        background-color: #ecfdf5; /* emerald.50 */
-        border: 1px solid #a7f3d0; /* emerald.200 */
-        border-radius: 8px;
-        padding: 12px 16px;
-        color: #047857; /* emerald.700 */
-        font-weight: 600;
-        font-size: 0.95rem;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <span class="has-text-weight-semibold">
+                    <i class="fa-solid fa-user-shield mr-1"></i> <?= session()->get('nombre_usuario') ?>
+                </span>
+            </div>
+            <div class="navbar-item">
+                <a href="<?= base_url('logout') ?>" class="button is-danger is-light is-small">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
 
-    /* Tabla Chakra UI */
-    .table-container {
-        overflow-x: auto;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-    }
-
-    .chakra-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: 0.95rem;
-    }
-
-    .chakra-table th {
-        background-color: #f8fafc; /* slate.50 */
-        color: #475569; /* slate.600 */
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 14px 20px;
-        border-bottom: 2px solid #e2e8f0;
-    }
-
-    .chakra-table td {
-        padding: 16px 20px;
-        border-bottom: 1px solid #e2e8f0;
-        color: #1e293b; /* slate.800 */
-    }
-
-    .chakra-table tr:hover {
-        background-color: #f1f5f9; /* slate.100 */
-    }
-
-    /* Badges de Rol */
-    .role-badge {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-
-    .role-badge.admin {
-        background-color: #e0f2fe; /* sky.100 */
-        color: #0369a1; /* sky.700 */
-    }
-
-    .role-badge.client {
-        background-color: #f1f5f9; /* slate.100 */
-        color: #475569; /* slate.600 */
-    }
-
-    /* Botones estilo Chakra UI */
-    .btn-chakra-primary {
-        background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
-        color: white;
-        font-weight: 700;
-        padding: 10px 20px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(5, 150, 105, 0.3);
-        transition: all 0.2s ease;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .btn-chakra-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(5, 150, 105, 0.4);
-        color: white;
-    }
-
-    /* Grupo de Botones de Acción */
-    .actions-group {
-        display: flex;
-        gap: 8px;
-    }
-
-    .btn-action {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background 0.2s ease, transform 0.1s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    .btn-action.edit {
-        background-color: #fef3c7; /* amber.100 */
-        color: #d97706; /* amber.600 */
-    }
-
-    .btn-action.edit:hover {
-        background-color: #fde68a; /* amber.200 */
-    }
-
-    .btn-action.delete {
-        background-color: #fee2e2; /* red.100 */
-        color: #dc2626; /* red.600 */
-    }
-
-    .btn-action.delete:hover {
-        background-color: #fca5a5; /* red.300 */
-    }
-</style>
-
-<div class="admin-section">
+<section class="section has-background-light" style="min-height: 100vh;">
     <div class="container">
         
-        <div class="admin-card">
+        <div class="box p-5">
             
-            <div class="admin-header">
-                <h1 class="admin-title">Administración de Clientes</h1>
-                <a href="<?= site_url('usuarios/crear') ?>" class="btn-chakra-primary">
-                    <i class="fa-solid fa-user-plus"></i> Registrar Cliente
-                </a>
+            <div class="columns is-vcentered mb-5">
+                <div class="column">
+                    <h1 class="title is-3 has-text-dark mb-1">
+                        <i class="fa-solid fa-users-gear has-text-link mr-2"></i>Administración de Clientes
+                    </h1>
+                    <h2 class="subtitle is-6 has-text-grey">
+                        Listado, control de roles y estados de los usuarios registrados.
+                    </h2>
+                </div>
+                <div class="column is-narrow">
+                    <a href="<?= site_url('usuarios/crear') ?>" class="button is-link">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </span>
+                        <span>Registrar Cliente</span>
+                    </a>
+                </div>
             </div>
 
             <?php if(session()->getFlashdata('mensaje')): ?>
-                <div class="notify-box">
-                    <i class="fa-solid fa-circle-check"></i>
+                <div class="notification is-success is-light">
+                    <button class="delete"></button>
+                    <span class="icon mr-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </span>
                     <?= session()->getFlashdata('mensaje') ?>
                 </div>
             <?php endif; ?>
 
             <div class="table-container">
-                <table class="chakra-table">
+                <table class="table is-hoverable is-striped is-fullwidth">
                     <thead>
-                        <tr>
-                            <th>ID</th>
+                        <tr class="has-background-white-ter">
+                            <th class="has-text-grey">ID</th>
                             <th>Usuario</th>
                             <th>Nombre y Apellido</th>
                             <th>Dirección</th>
                             <th>Teléfono</th>
-                            <th>Rol</th>
+                            <th class="has-text-centered">Rol</th>
                             <th>Fecha de Alta</th>
-                            <th>Acciones</th>
+                            <th class="has-text-centered">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if(!empty($usuarios)): ?>
                             <?php foreach($usuarios as $user): ?>
                                 <tr>
-                                    <td><strong>#<?= $user['id_usuario'] ?></strong></td>
-                                    <td><?= esc($user['nombre_usuario']) ?></td>
-                                    <td><?= esc($user['nombre_usuario'] . ' ' . $user['apellido_usuario']) ?></td>
-                                    <td><?= esc($user['direccion'] ?? 'No especificada') ?></td>
-                                    <td><?= esc($user['telefono'] ?? 'No especificado') ?></td>
-                                    <td>
-                                        <span class="role-badge <?= $user['rol'] == 'administrador' ? 'admin' : 'client' ?>">
-                                            <?= esc($user['rol']) ?>
+                                    <td class="vertical-center">
+                                        <span class="tag is-light is-normal has-text-weight-bold">
+                                            #<?= $user['id_usuario'] ?>
                                         </span>
                                     </td>
-                                    <td><?= esc($user['fecha_alta']) ?></td>
-                                    <td>
-                                        <div class="actions-group">
-                                            <a href="<?= site_url('usuarios/editar/'.$user['id_usuario']) ?>" class="btn-action edit">
-                                                <i class="fa-solid fa-pen-to-square"></i> Editar
+                                    <td class="has-text-weight-semibold vertical-center">
+                                        <?= esc($user['nombre_usuario']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <?= esc($user['nombre_usuario'] . ' ' . $user['apellido_usuario']) ?>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <span class="has-text-grey-dark">
+                                            <?= esc($user['direccion'] ?? 'No especificada') ?>
+                                        </span>
+                                    </td>
+                                    <td class="vertical-center">
+                                        <?= esc($user['telefono'] ?? 'No especificado') ?>
+                                    </td>
+                                    <td class="has-text-centered vertical-center">
+                                        <?php if($user['rol'] == 'administrador'): ?>
+                                            <span class="tag is-info is-light has-text-weight-bold is-uppercase">
+                                                <i class="fa-solid fa-user-shield mr-1"></i> Admin
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="tag is-light has-text-weight-bold is-uppercase">
+                                                <i class="fa-solid fa-user mr-1"></i> Cliente
+                                            </span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="is-size-7 vertical-center">
+                                        <?= esc($user['fecha_alta']) ?>
+                                    </td>
+                                    <td class="has-text-centered vertical-center">
+                                        <div class="buttons is-centered are-small">
+                                            <a href="<?= site_url('usuarios/editar/'.$user['id_usuario']) ?>" class="button is-warning is-light has-text-weight-bold">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </span>
+                                                <span>Editar</span>
                                             </a>
-                                            <a href="<?= site_url('usuarios/eliminar/'.$user['id_usuario']) ?>" class="btn-action delete" onclick="return confirm('¿Seguro que desea dar de baja lógica a este cliente?')">
-                                                <i class="fa-solid fa-user-slash"></i> Baja
+                                            <a href="<?= site_url('usuarios/eliminar/'.$user['id_usuario']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="return confirm('¿Seguro que desea dar de baja lógica a este cliente?')">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-user-slash"></i>
+                                                </span>
+                                                <span>Baja</span>
                                             </a>
                                         </div>
                                     </td>
@@ -229,8 +149,11 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8" style="text-align: center; color: #94a3b8; padding: 30px;">
-                                    No hay usuarios registrados en el sistema.
+                                <td colspan="8" class="has-text-centered has-text-grey-light py-6">
+                                    <span class="icon is-large block mb-2">
+                                        <i class="fa-solid fa-user-xmark fa-2x"></i>
+                                    </span>
+                                    <p>No hay usuarios registrados en el sistema.</p>
                                 </td>
                             </tr>
                         <?php endif; ?>
@@ -241,6 +164,12 @@
         </div>
 
     </div>
-</div>
+</section>
+
+<style>
+    .table td.vertical-center {
+        vertical-align: middle;
+    }
+</style>
 
 <?php echo view('layout/footer'); ?>
