@@ -44,16 +44,16 @@ $routes->get('/admin', 'UsuariosController::administrador');
 $routes->get('/administrador', 'AdministradorController::index');
 $routes->get(
     '/administrador/alquileres',
-    'Alquileres::listarAlquileresAdmin'
+    'AlquileresController::listarAlquileresAdmin'
 );
 
 // Alquileres
 $routes->get(
     'mis-alquileres/resumen/(:num)',
-    'Alquileres::verResumen/$1'
+    'AlquileresController::verResumen/$1'
 );
-$routes->get('mis-alquileres', 'Alquileres::mostrarAlquileres');
-//$routes->get('mis-alquileres/resumen/(:num)', 'Alquileres::verResumen/$1');
+$routes->get('mis-alquileres', 'AlquileresController::mostrarAlquileres');
+//$routes->get('mis-alquileres/resumen/(:num)', 'AlquileresController::verResumen/$1');
 
 // Alquileres y Devoluciones
 // $routes->get('admin/alquileres', 'AlquileresController::index');
