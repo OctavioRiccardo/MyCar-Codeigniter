@@ -14,6 +14,7 @@ $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1
 $routes->post('cliente/reservar/procesar', 'ClientesController::procesarReserva');
 $routes->get('cliente/resumen', 'ClientesController::resumenReserva');
 $routes->post('cliente/reservas/confirmar', 'ClientesController::confirmarReserva');
+$routes->get('perfil', 'ClientesController::perfil');
 
 // 3. Rutas del Administrador
 
@@ -40,10 +41,9 @@ $routes->post('login/validar', 'LoginController::validar');
 $routes->get('logout', 'LoginController::logout');
 
 // ADMINISTRADOR
-$routes->get('/admin', 'UsuariosController::administrador');
-$routes->get('/administrador', 'AdministradorController::index');
+$routes->get('administrador', 'AdministradorController::index');
 $routes->get(
-    '/administrador/alquileres',
+    'administrador/alquileres',
     'AlquileresController::listarAlquileresAdmin'
 );
 

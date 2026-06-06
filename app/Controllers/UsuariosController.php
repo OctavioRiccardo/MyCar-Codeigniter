@@ -13,15 +13,6 @@ class UsuariosController extends BaseController
         $this->usuarios = new UsuariosModel();
     }
 
-    // PANEL ADMINISTRADOR
-    public function administrador()
-    {
-        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
-            return redirect()->to('/');
-        }
-
-        return view('Vistas_Administrador/administrador_inicio');
-    }
 
     // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()

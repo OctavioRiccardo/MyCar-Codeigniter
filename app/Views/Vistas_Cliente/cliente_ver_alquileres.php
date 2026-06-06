@@ -28,11 +28,23 @@
 
                             <div class="card-top-section">
 
-                                <span class="tag is-info status-badge">
-
-                                    Alquilado
-
-                                </span>
+                                <?php if($alquiler['estado'] == 'reserva'): ?>
+                                    <span class="tag is-warning status-badge">
+                                        Reservado
+                                    </span>
+                                <?php elseif($alquiler['estado'] == 'alquiler'): ?>
+                                    <span class="tag is-info status-badge">
+                                        Alquilado
+                                    </span>
+                                <?php elseif($alquiler['estado'] == 'devuelto'): ?>
+                                    <span class="tag is-success status-badge">
+                                        Devuelto
+                                    </span>
+                                <?php else: ?>
+                                    <span class="tag is-danger status-badge">
+                                        <?= esc(ucfirst($alquiler['estado'])) ?>
+                                    </span>
+                                <?php endif; ?>
 
                                 <?php if(!empty($alquiler['imagen'])): ?>
 

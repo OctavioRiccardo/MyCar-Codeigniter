@@ -87,13 +87,17 @@
                                             <span class="tag is-warning is-light has-text-weight-bold is-uppercase">
                                                 <i class="fa-solid fa-clock mr-1"></i> Reserva
                                             </span>
-                                        <?php elseif($alquiler['estado'] == 'finalizado'): ?>
+                                        <?php elseif($alquiler['estado'] == 'alquiler'): ?>
+                                            <span class="tag is-info is-light has-text-weight-bold is-uppercase">
+                                                <i class="fa-solid fa-car mr-1"></i> Alquilado
+                                            </span>
+                                        <?php elseif($alquiler['estado'] == 'devuelto'): ?>
                                             <span class="tag is-success is-light has-text-weight-bold is-uppercase">
-                                                <i class="fa-solid fa-circle-check mr-1"></i> Finalizado
+                                                <i class="fa-solid fa-circle-check mr-1"></i> Devuelto
                                             </span>
                                         <?php else: ?>
                                             <span class="tag is-danger is-light has-text-weight-bold is-uppercase">
-                                                <i class="fa-solid fa-circle-xmark mr-1"></i> Cancelado
+                                                <i class="fa-solid fa-circle-xmark mr-1"></i> <?= esc(ucfirst($alquiler['estado'])) ?>
                                             </span>
                                         <?php endif; ?>
                                     </td>
