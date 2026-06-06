@@ -1,53 +1,9 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador - MyCar</title>
+<?php echo view('layout/header'); ?>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
-
-    <style>
-        /* Un pequeño toque extra interactivo para las tarjetas */
-        .admin-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .admin-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-
-<nav class="navbar is-link" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand">
-                <a class="navbar-item has-text-weight-bold is-size-4" href="<?= base_url('/administrador') ?>">
-                    <i class="fa-solid fa-car-side mr-2"></i> MyCar Admin
-                </a>
-        </div>
-
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <span class="has-text-weight-semibold">
-                    <i class="fa-solid fa-user-shield mr-1"></i> <?= session()->get('nombre_usuario') ?>
-                </span>
-            </div>
-            <div class="navbar-item">
-                <a href="<?= base_url('logout') ?>" class="button is-danger is-light is-small">
-                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<section class="section has-background-light" style="min-height: 100vh;">
+<section class="section section-vehiculos" style="min-height: 100vh;">
     <div class="container">
         
-        <div class="box p-5">
+        <div class="box admin-box p-5">
             
             <div class="columns is-vcentered mb-5">
                 <div class="column">

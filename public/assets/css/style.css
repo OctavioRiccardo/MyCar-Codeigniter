@@ -1298,3 +1298,122 @@ body {
     font-weight: 700;
 }
 
+/* ==========================================================================
+   ADMIN & FORM LAYOUTS (Centralized)
+   ========================================================================== */
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 40px 20px;
+    background-color: var(--slate-50);
+}
+
+.form-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--emerald-900);
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.form-subtitle {
+    font-size: 0.95rem;
+    color: var(--slate-500);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+@media screen and (max-width: 600px) {
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+}
+
+.form-select {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    font-size: 0.95rem;
+    border: 1px solid var(--slate-300);
+    border-radius: var(--radius-lg);
+    color: var(--slate-900);
+    background-color: #ffffff;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--emerald-600);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    border-top: 1px solid var(--slate-200);
+    padding-top: 20px;
+}
+
+/* Card del Dashboard de Administrador */
+.admin-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--slate-200) !important;
+    border-radius: var(--radius-2xl) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg) !important;
+    border-color: var(--emerald-200) !important;
+}
+
+/* Box para listados del Administrador */
+.admin-box {
+    background: #ffffff;
+    border: 1px solid var(--slate-200) !important;
+    border-radius: var(--radius-2xl) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.admin-box-title {
+    color: var(--emerald-900) !important;
+    font-weight: 700;
+}
+
+

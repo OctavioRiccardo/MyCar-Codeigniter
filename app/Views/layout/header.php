@@ -77,16 +77,49 @@
                             session()->get('rol') == 'administrador'
                         ): ?>
 
+                            <!-- Panel Admin -->
+                            <a href="<?= site_url('administrador') ?>"
+                                class="button btn-login">
+                                <span class="icon">
+                                    <i class="fa-solid fa-gauge"></i>
+                                </span>
+                                <span>Panel</span>
+                            </a>
+
+                            <!-- Usuarios -->
+                            <a href="<?= site_url('usuarios') ?>"
+                                class="button btn-login">
+                                <span class="icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </span>
+                                <span>Usuarios</span>
+                            </a>
+
+                            <!-- Vehículos -->
+                            <a href="<?= site_url('vehiculos') ?>"
+                                class="button btn-login">
+                                <span class="icon">
+                                    <i class="fa-solid fa-car"></i>
+                                </span>
+                                <span>Vehículos</span>
+                            </a>
+
+                            <!-- Alquileres -->
+                            <a href="<?= site_url('administrador/alquileres') ?>"
+                                class="button btn-login">
+                                <span class="icon">
+                                    <i class="fa-solid fa-file-contract"></i>
+                                </span>
+                                <span>Alquileres</span>
+                            </a>
+
                             <!-- Cerrar Sesión -->
                             <a href="<?= site_url('logout') ?>"
                                 class="button btn-login">
-
                                 <span class="icon">
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 </span>
-
                                 <span>Cerrar Sesión</span>
-
                             </a>
 
                         <!-- CLIENTE -->
