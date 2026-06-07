@@ -122,7 +122,7 @@
 
                                 <i class="fa-solid fa-credit-card"></i>
 
-                                <?= ucfirst($alquiler['metodopago']); ?>
+                                <?= ucfirst(esc($alquiler['metodopago'] ?? 'efectivo')); ?>
 
                             </div>
 

@@ -78,7 +78,7 @@
                                     <td class="vertical-center">
                                         <span class="icon-text">
                                             <span class="icon has-text-grey-medium"><i class="fa-solid fa-credit-card"></i></span>
-                                            <span><?= ucfirst(esc($alquiler['metodopago'])) ?></span>
+                                            <span><?= ucfirst(esc($alquiler['metodopago'] ?? 'efectivo')) ?></span>
                                         </span>
                                     </td>
 

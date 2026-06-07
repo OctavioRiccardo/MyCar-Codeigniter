@@ -36,7 +36,8 @@ CREATE TABLE `alquileres` (
   `fecha_hasta` date NOT NULL,
   `id_vehiculo` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `estado` enum('reserva','alquiler','devuelto') NOT NULL DEFAULT 'reserva' 
+  `estado` enum('reserva','alquiler','devuelto') NOT NULL DEFAULT 'reserva',
+  `metodopago` varchar(50) NOT NULL DEFAULT 'efectivo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `alquileres`
