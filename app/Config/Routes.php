@@ -38,14 +38,12 @@ $routes->post('cliente/reservas/confirmar', 'ClientesController::confirmarReserv
 // ==========================================================================
 $routes->get('administrador', 'AdministradorController::index');
 $routes->get('administrador/alquileres', 'AlquileresController::listarAlquileresAdmin');
-
-// Gestión de Clientes (Usuarios)
+// Gestión de Clientes
 $routes->get('usuarios', 'UsuariosController::index');
 $routes->get('usuarios/editar/(:num)', 'UsuariosController::editar/$1');
 $routes->post('usuarios/actualizar/(:num)', 'UsuariosController::actualizar/$1');
 $routes->get('usuarios/eliminar/(:num)', 'UsuariosController::eliminar/$1');
-
-// Gestión de Vehículos (Flota)
+// Gestión de Vehículos 
 $routes->get('vehiculos', 'VehiculosController::index');
 $routes->get('vehiculos/new', 'VehiculosController::new');
 $routes->post('vehiculos/create', 'VehiculosController::create');
