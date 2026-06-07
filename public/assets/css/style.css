@@ -1391,16 +1391,27 @@ body {
 
 /* Card del Dashboard de Administrador */
 .admin-card {
+    background-color: #ffffff !important;
+    color: var(--slate-800) !important;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid var(--slate-200) !important;
     border-radius: var(--radius-2xl) !important;
     box-shadow: var(--shadow-md) !important;
 }
 
+.admin-card .title {
+    color: var(--slate-800) !important;
+}
+
+.admin-card .subtitle {
+    color: var(--slate-600) !important;
+}
+
 .admin-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg) !important;
-    border-color: var(--emerald-200) !important;
+    border-color: var(--emerald-500) !important;
+    background-color: var(--slate-50) !important;
 }
 
 /* Box para listados del Administrador */
