@@ -7,12 +7,19 @@
             
             <div class="columns is-vcentered mb-5">
                 <div class="column">
-                    <h1 class="title is-3 has-text-dark mb-1 admin-box-title">
-                        <i class="fa-solid fa-car has-text-emerald-700 mr-2"></i>Administración de Vehículos
-                    </h1>
-                    <h2 class="subtitle is-6 has-text-grey">
-                        Gestión de flota, disponibilidad, kilometraje y tarifas diarias de MyCar.
-                    </h2>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <a href="<?= site_url('administrador') ?>" class="btn-chakra-light" style="padding: 8px 12px; height: auto;" title="Volver al Panel">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <div>
+                            <h1 class="title is-3 has-text-dark mb-1 admin-box-title" style="margin: 0;">
+                                <i class="fa-solid fa-car has-text-emerald-700 mr-2"></i>Administración de Vehículos
+                            </h1>
+                            <h2 class="subtitle is-6 has-text-grey" style="margin: 5px 0 0 0;">
+                                Gestión de flota, disponibilidad, kilometraje y tarifas diarias de MyCar.
+                            </h2>
+                        </div>
+                    </div>
                 </div>
                 <div class="column is-narrow">
                     <a href="<?= site_url('vehiculos/new') ?>" class="btn-chakra-primary">

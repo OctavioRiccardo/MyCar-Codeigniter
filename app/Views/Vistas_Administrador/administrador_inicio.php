@@ -4,12 +4,19 @@
     <div class="container">
 
         <div class="block mb-6">
-            <h1 class="title is-2 has-text-dark">
-                Panel de Administración
-            </h1>
-            <h2 class="subtitle is-5 has-text-grey">
-                Bienvenido de nuevo al sistema de gestión de MyCar.
-            </h2>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="<?= base_url('/') ?>" class="btn-chakra-light" style="padding: 8px 12px; height: auto;" title="Volver al Inicio">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div>
+                    <h1 class="title is-2 has-text-dark" style="margin: 0;">
+                        Panel de Administración
+                    </h1>
+                    <h2 class="subtitle is-5 has-text-grey" style="margin: 5px 0 0 0;">
+                        Bienvenido de nuevo al sistema de gestión de MyCar.
+                    </h2>
+                </div>
+            </div>
         </div>
 
         <div class="columns is-multiline">
