@@ -1,5 +1,7 @@
 # Local configurations
 .env
 
-# CodeIgniter Logs
-writable/logs/*.log
+# CodeIgniter Writable folder
+writable/*
+!writable/.htaccess
+!writable/index.html
