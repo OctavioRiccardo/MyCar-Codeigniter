@@ -100,6 +100,20 @@
                 </div>
             </div>
 
+            <?php if(session()->get('logueado') && session()->get('rol') == 'administrador'): ?>
+                <!-- Rol (Solo para Administradores) -->
+                <div class="form-group">
+                    <label class="form-label">Rol del Usuario</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user-shield input-icon"></i>
+                        <select name="rol" class="form-select" required>
+                            <option value="cliente" <?= (isset($usuario) && $usuario['rol'] == 'cliente') ? 'selected' : '' ?>>Cliente</option>
+                            <option value="administrador" <?= (isset($usuario) && $usuario['rol'] == 'administrador') ? 'selected' : '' ?>>Administrador</option>
+                        </select>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <button type="submit" class="btn-register-submit">
                 <?= isset($usuario) ? 'Actualizar Datos' : 'Registrarse' ?>
             </button>

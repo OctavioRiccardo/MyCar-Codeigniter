@@ -13,6 +13,7 @@ class UsuariosController extends BaseController
         $this->usuarios = new UsuariosModel();
     }
 
+
     // LISTAR USUARIOS (VISTA ADMINISTRADOR)
     public function index()
     {
@@ -20,9 +21,13 @@ class UsuariosController extends BaseController
             return redirect()->to('/');
         }
 
-        $data['usuarios'] = $this->usuarios->findAll();
+        $data['usuarios'] = $this->usuarios
+            ->where('rol', 'cliente')
+            ->findAll();
 
-        return view('Vistas_Administrador/usuarios_lista', $data);
+        //$data['usuarios'] = $this->usuarios->findAll();
+
+        return view('Vistas_Administrador/administrador_usuarios_lista', $data);
     }
 
     // FORMULARIO ALTA

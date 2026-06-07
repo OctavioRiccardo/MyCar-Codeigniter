@@ -19,21 +19,28 @@ class LoginController extends BaseController
         $claveUsuario  = $this->request->getPost('password');
 
         $userModel = new UsuariosModel();
-        $usuario = $userModel->where('nombre_usuario', $nombreUsuario)->first();
 
+        $usuario = $userModel
+            ->where('nombre_usuario', $nombreUsuario)
+            ->first();
+
+        // Usuario inexistente
         if (!$usuario) {
+
             return redirect()->back()
                 ->withInput()
                 ->with('error_login', 'El usuario no existe.');
         }
 
+        // Contraseña incorrecta
         if (!password_verify($claveUsuario, $usuario['password'])) {
+
             return redirect()->back()
                 ->withInput()
                 ->with('error_login', 'Contraseña incorrecta.');
         }
 
-        // Crear datos de sesión
+        // Crear sesión
         session()->set([
             'id_usuario'       => $usuario['id_usuario'],
             'nombre_usuario'   => $usuario['nombre_usuario'],
@@ -42,14 +49,35 @@ class LoginController extends BaseController
             'logueado'         => true
         ]);
 
-        return redirect()->to('/')->with('toast_success', '¡Bienvenido/a de nuevo, ' . $usuario['nombre_usuario'] . '! Has iniciado sesión con éxito.');
+        // REDIRECCIÓN SEGÚN ROL
+        if ($usuario['rol'] == 'administrador') {
+
+            return redirect()->to('/administrador')
+                ->with(
+                    'toast_success',
+                    'Bienvenido administrador ' . $usuario['nombre_usuario']
+                );
+        }
+
+        // Usuario normal
+        return redirect()->to('/')
+            ->with(
+                'toast_success',
+                '¡Bienvenido/a de nuevo, ' .
+                $usuario['nombre_usuario'] .
+                '! Has iniciado sesión con éxito.'
+            );
     }
 
     // Cerrar sesión
     public function logout()
     {
-        session()->remove(['id_usuario', 'nombre_usuario', 'apellido_usuario', 'logueado']);
+        session()->destroy();
 
-        return redirect()->to('/')->with('toast_warning', 'Has cerrado tu sesión de forma segura. ¡Esperamos verte pronto!');
+        return redirect()->to('/')
+            ->with(
+                'toast_warning',
+                'Has cerrado tu sesión de forma segura.'
+            );
     }
 }

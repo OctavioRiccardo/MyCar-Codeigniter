@@ -155,9 +155,30 @@ class ClientesController extends BaseController
             // Limpiar sesión temporal
             session()->remove('temp_reserva');
 
-            return redirect()->to('/')->with('toast_success', '¡Reserva confirmada con éxito! Tu alquiler en estado de reserva ha sido registrado.');
+            return redirect()->to('/mis-alquileres')->with('toast_success', '¡Reserva confirmada con éxito! Tu alquiler en estado de reserva ha sido registrado.');
         } else {
             return redirect()->back()->with('toast_warning', 'Hubo un problema al procesar tu reserva. Inténtalo de nuevo.');
         }
     }
+
+    // 5. Mostrar perfil del cliente
+    public function perfil()
+    {
+        if (!session()->get('logueado')) {
+            return redirect()->to('/login')->with('error_login', 'Debes iniciar sesión para ver tu perfil.');
+        }
+
+        $usuariosModel = new \App\Models\UsuariosModel();
+        $idUsuario = session()->get('id_usuario');
+        $usuario = $usuariosModel->find($idUsuario);
+
+        if (!$usuario) {
+            return redirect()->to('/')->with('toast_warning', 'Usuario no encontrado.');
+        }
+
+        return view('Vistas_Cliente/cliente_perfil', [
+            'usuario' => $usuario
+        ]);
+    }
 }
+
