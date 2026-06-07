@@ -24,7 +24,6 @@ $routes->post('usuarios/guardar', 'UsuariosController::guardar');
 $routes->get('perfil', 'ClientesController::perfil');
 $routes->get('mis-alquileres', 'AlquileresController::mostrarAlquileres');
 $routes->get('mis-alquileres/resumen/(:num)', 'AlquileresController::verResumen/$1');
-
 // Proceso de Reserva de Vehículo
 $routes->get('cliente/vehiculo/(:num)', 'VehiculosController::detalle/$1');
 $routes->get('cliente/reservar/(:num)', 'ClientesController::solicitarReserva/$1');
