@@ -5,13 +5,24 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use Config\Database;
 
+/**
+ * Controlador de Diagnóstico de Base de Datos.
+ * Permite probar de manera aislada la conexión con la base de datos MySQL configurada en el framework.
+ */
 class TestDBController extends Controller
 {
-    // Test de conexión a la base de datos
+    /**
+     * Realiza un test de conexión y ejecuta una consulta de prueba.
+     * 
+     * @return string
+     */
     public function index()
     {
         try {
+            // Conectar al servicio de base de datos
             $db = Database::connect();
+            
+            // Consultar el nombre de la base de datos activa
             $query = $db->query("SELECT DATABASE()");
 
             if ($query) {
@@ -23,10 +34,12 @@ class TestDBController extends Controller
                 $data['mensaje'] = "No se pudo ejecutar la consulta.";
             }
         } catch (\Exception $e) {
+            // Capturar cualquier fallo de red o credenciales incorrectas
             $data['estado'] = false;
             $data['mensaje'] = "Error: " . $e->getMessage();
         }
 
+        // Cargar vista de reporte de diagnóstico
         return view('test_db', $data);
     }
 }

@@ -1,3 +1,13 @@
+<?php
+if (
+    session()->get('logueado') &&
+    session()->get('rol') === 'administrador' &&
+    (uri_string() === '' || uri_string() === '/' || strpos(uri_string(), 'cliente/') === 0)
+) {
+    header('Location: ' . site_url('administrador'));
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,7 +30,7 @@
 
     <!-- CSS Global -->
     <link rel="stylesheet"
-        href="<?= base_url('assets/css/style.css') ?>">
+        href="<?= base_url('assets/css/style.css?v=1.5') ?>">
 
 </head>
 
@@ -35,7 +45,7 @@
         <div class="navbar-brand">
 
             <a class="navbar-item logo-container"
-                href="<?= base_url('/') ?>">
+                href="<?= (session()->get('logueado') && session()->get('rol') === 'administrador') ? site_url('administrador') : base_url('/') ?>">
 
                 <img
                     src="<?= base_url('assets/img/logomycar.png') ?>"
@@ -77,16 +87,22 @@
                             session()->get('rol') == 'administrador'
                         ): ?>
 
+                            <!-- Panel Admin -->
+                            <a href="<?= site_url('administrador') ?>"
+                                class="button btn-login">
+                                <span class="icon">
+                                    <i class="fa-solid fa-gauge"></i>
+                                </span>
+                                <span>Panel</span>
+                            </a>
+
                             <!-- Cerrar Sesión -->
                             <a href="<?= site_url('logout') ?>"
                                 class="button btn-login">
-
                                 <span class="icon">
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 </span>
-
                                 <span>Cerrar Sesión</span>
-
                             </a>
 
                         <!-- CLIENTE -->
