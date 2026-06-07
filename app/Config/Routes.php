@@ -9,7 +9,6 @@ use CodeIgniter\Router\RouteCollection;
 // ==========================================================================
 $routes->get('/', 'InicioController::index');
 $routes->get('testdb', 'TestDBController::index');
-
 // Autenticación y Registro de Clientes
 $routes->get('login', 'LoginController::index');
 $routes->post('login/validar', 'LoginController::validar');
