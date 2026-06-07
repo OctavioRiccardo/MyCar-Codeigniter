@@ -21,7 +21,7 @@ class VehiculosController extends Controller
 
         // Si es administrador, muestra la vista de administración
         if (session()->get('logueado') && session()->get('rol') === 'administrador') {
-            return view('Vistas_Administrador/vehiculos_lista', $data);
+            return view('Vistas_Administrador/administrador_vehiculos_lista', $data);
         }
 
         // De lo contrario (cliente o visitante), muestra la vista común de inicio
@@ -43,7 +43,7 @@ class VehiculosController extends Controller
 
         $data['vehiculo'] = $vehiculo;
 
-        return view('Vistas_Administrador/vehiculos_mostrar', $data);
+        return view('Vistas_Administrador/administrador_vehiculos_mostrar', $data);
     }
 
     // Formulario de alta (Admin)
@@ -53,7 +53,7 @@ class VehiculosController extends Controller
             return redirect()->to('/');
         }
 
-        return view('Vistas_Administrador/vehiculos_crear');
+        return view('Vistas_Administrador/administrador_vehiculos_crear');
     }
 
     // Guardar nuevo vehículo (Admin)
@@ -94,7 +94,7 @@ class VehiculosController extends Controller
 
         $data['vehiculo'] = $vehiculo;
 
-        return view('Vistas_Administrador/vehiculos_editar', $data);
+        return view('Vistas_Administrador/administrador_vehiculos_editar', $data);
     }
 
     // Actualizar datos del vehículo (Admin)

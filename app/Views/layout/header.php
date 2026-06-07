@@ -30,7 +30,7 @@ if (
 
     <!-- CSS Global -->
     <link rel="stylesheet"
-        href="<?= base_url('assets/css/style.css?v=1.3') ?>">
+        href="<?= base_url('assets/css/style.css?v=1.5') ?>">
 
 </head>
 

@@ -174,7 +174,7 @@ class AlquileresController extends Controller
         $data['alquileres'] = $alquileres;
 
         return view(
-            'Vistas_Administrador/alquileres_lista',
+            'Vistas_Administrador/administrador_alquileres_lista',
             $data
         );
     }

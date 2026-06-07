@@ -1458,8 +1458,17 @@ body {
     color: var(--slate-700) !important;
 }
 
-.admin-box .table tbody tr:hover {
-    background-color: var(--slate-50) !important;
+.admin-box .table.is-striped tbody tr:nth-child(even),
+.admin-box .table.is-striped tbody tr:nth-child(even) td,
+.admin-box .table.is-striped tbody tr:nth-child(even) th {
+    background-color: #f8fafc !important;
+}
+
+.admin-box .table tbody tr:hover,
+.admin-box .table tbody tr:hover td,
+.admin-box .table tbody tr:hover th {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
 }
 
 /* Botones de acción en tablas de admin */

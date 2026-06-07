@@ -27,7 +27,7 @@ class UsuariosController extends BaseController
 
         //$data['usuarios'] = $this->usuarios->findAll();
 
-        return view('Vistas_Administrador/usuarios_lista', $data);
+        return view('Vistas_Administrador/administrador_usuarios_lista', $data);
     }
 
     // FORMULARIO ALTA
