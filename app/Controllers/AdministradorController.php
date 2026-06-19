@@ -88,6 +88,7 @@ class AdministradorController extends BaseController
         }
 
         $datos = [
+            'id_usuario'       => $id,
             'nombre_usuario'   => $this->request->getPost('nombre_usuario'),
             'rol'              => $this->request->getPost('rol') ?? $usuario['rol'],
             'apellido_usuario' => $this->request->getPost('apellido_usuario'),
