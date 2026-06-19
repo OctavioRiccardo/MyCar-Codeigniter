@@ -78,6 +78,19 @@
                 </div>
             </div>
 
+            <!-- Método de Pago -->
+            <div class="form-group">
+                <label class="form-label">Método de Pago</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-credit-card input-icon"></i>
+                    <select name="metodopago" id="metodopago" class="form-input" required style="width: 100%; border: 1px solid var(--slate-300); border-radius: var(--radius-md); font-family: var(--font-sans); cursor: pointer;">
+                        <option value="efectivo" <?= old('metodopago') == 'efectivo' ? 'selected' : '' ?>>Efectivo</option>
+                        <option value="tarjeta" <?= old('metodopago') == 'tarjeta' ? 'selected' : '' ?>>Tarjeta de Crédito / Débito</option>
+                        <option value="transferencia" <?= old('metodopago') == 'transferencia' ? 'selected' : '' ?>>Transferencia Bancaria</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Acciones -->
             <div style="display: flex; gap: 12px; margin-top: 25px;">
                 <a href="<?= site_url('cliente/vehiculo/' . $vehiculo['id_vehiculo']) ?>" class="chakra-btn chakra-btn-outline" style="flex: 1; text-align: center; display: inline-flex; justify-content: center; align-items: center; text-decoration: none;">
