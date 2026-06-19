@@ -43,12 +43,12 @@ $routes->post('usuarios/actualizar/(:num)', 'AdministradorController::actualizar
 $routes->get('usuarios/eliminar/(:num)', 'AdministradorController::eliminarUsuario/$1');
 // Gestión de Vehículos 
 $routes->get('vehiculos', 'VehiculosController::index');
-$routes->get('vehiculos/new', 'VehiculosController::new');
-$routes->post('vehiculos/create', 'VehiculosController::create');
-$routes->get('vehiculos/edit/(:num)', 'VehiculosController::edit/$1');
-$routes->post('vehiculos/update/(:num)', 'VehiculosController::update/$1');
-$routes->get('vehiculos/delete/(:num)', 'VehiculosController::delete/$1');
-$routes->get('vehiculos/(:num)', 'VehiculosController::show/$1');
+$routes->get('vehiculos/crear', 'VehiculosController::crear');
+$routes->post('vehiculos/guardar', 'VehiculosController::guardar');
+$routes->get('vehiculos/editar/(:num)', 'VehiculosController::editar/$1');
+$routes->post('vehiculos/actualizar/(:num)', 'VehiculosController::actualizar/$1');
+$routes->get('vehiculos/eliminar/(:num)', 'VehiculosController::eliminar/$1');
+$routes->get('vehiculos/(:num)', 'VehiculosController::mostrar/$1');
 
 // Alquileres y Devoluciones (Admin)
 $routes->post('administrador/alquileres/aprobar/(:num)', 'AlquileresController::aprobarReserva/$1');

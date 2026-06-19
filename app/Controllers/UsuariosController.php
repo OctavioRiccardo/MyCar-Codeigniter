@@ -73,7 +73,7 @@ class UsuariosController extends BaseController
                 ->withInput()
                 ->with('errors', ['nombre_usuario' => 'El nombre de usuario ya está en uso.']);
         }
-
+        
         // Verificar si el nombre de usuario pertenecía a un usuario DADO DE BAJA (Soft Deleted)
         $usuarioEliminado = $this->usuarios->onlyDeleted()->where('nombre_usuario', $nombre_usuario)->first();
         if ($usuarioEliminado) {

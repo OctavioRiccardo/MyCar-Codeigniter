@@ -69,7 +69,7 @@
 
             <div class="show-actions">
                 <a href="<?= site_url('vehiculos') ?>" class="btn-chakra-light">Volver al Listado</a>
-                <a href="<?= site_url('vehiculos/edit/'.$vehiculo['id_vehiculo']) ?>" class="btn-chakra-primary">
+                <a href="<?= site_url('vehiculos/editar/'.$vehiculo['id_vehiculo']) ?>" class="btn-chakra-primary">
                     <i class="fa-solid fa-pen-to-square"></i> Editar Vehículo
                 </a>
             </div>

@@ -53,7 +53,7 @@ class VehiculosController extends Controller
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \CodeIgniter\Exceptions\PageNotFoundException
      */
-    public function show($id = null)
+    public function mostrar($id = null)
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
@@ -77,7 +77,7 @@ class VehiculosController extends Controller
      * 
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      */
-    public function new()
+    public function crear()
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
@@ -93,7 +93,7 @@ class VehiculosController extends Controller
      * 
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function create()
+    public function guardar()
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
@@ -125,7 +125,7 @@ class VehiculosController extends Controller
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \CodeIgniter\Exceptions\PageNotFoundException
      */
-    public function edit($id = null)
+    public function editar($id = null)
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
@@ -150,7 +150,7 @@ class VehiculosController extends Controller
      * @param int|string|null $id ID del vehículo a actualizar.
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function update($id = null)
+    public function actualizar($id = null)
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
@@ -182,7 +182,7 @@ class VehiculosController extends Controller
      * @return \CodeIgniter\HTTP\RedirectResponse
      * @throws \CodeIgniter\Exceptions\PageNotFoundException
      */
-    public function delete($id = null)
+    public function eliminar($id = null)
     {
         // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {

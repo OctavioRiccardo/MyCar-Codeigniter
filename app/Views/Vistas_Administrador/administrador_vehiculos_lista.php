@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="column is-narrow">
-                    <a href="<?= site_url('vehiculos/new') ?>" class="btn-chakra-primary">
+                    <a href="<?= site_url('vehiculos/crear') ?>" class="btn-chakra-primary">
                         <span class="icon">
                             <i class="fa-solid fa-car-side"></i>
                         </span>
@@ -108,13 +108,13 @@
                                                 </span>
                                                 <span>Ver</span>
                                             </a>
-                                            <a href="<?= site_url('vehiculos/edit/'.$v['id_vehiculo']) ?>" class="button is-warning is-light has-text-weight-bold">
+                                            <a href="<?= site_url('vehiculos/editar/'.$v['id_vehiculo']) ?>" class="button is-warning is-light has-text-weight-bold">
                                                 <span class="icon is-small">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </span>
                                                 <span>Editar</span>
                                             </a>
-                                             <a href="<?= site_url('vehiculos/delete/'.$v['id_vehiculo']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="showDeleteModal(event, this, '¿Seguro que desea dar de baja lógica a este vehículo? El coche ya no estará visible en el catálogo de alquiler.')">
+                                             <a href="<?= site_url('vehiculos/eliminar/'.$v['id_vehiculo']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="showDeleteModal(event, this, '¿Seguro que desea dar de baja lógica a este vehículo? El coche ya no estará visible en el catálogo de alquiler.')">
                                                  <span class="icon is-small">
                                                      <i class="fa-solid fa-trash-can"></i>
                                                  </span>

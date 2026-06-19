@@ -10,7 +10,7 @@
         <h1 class="form-title">Editar Vehículo</h1>
         <p class="form-subtitle">Modifica los detalles técnicos o la disponibilidad del vehículo</p>
 
-        <form action="<?= site_url('vehiculos/update/'.$vehiculo['id_vehiculo']) ?>" method="post">
+        <form action="<?= site_url('vehiculos/actualizar/'.$vehiculo['id_vehiculo']) ?>" method="post">
             
             <div class="form-grid">
                 
