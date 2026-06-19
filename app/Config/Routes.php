@@ -37,10 +37,10 @@ $routes->post('cliente/reservas/confirmar', 'ClientesController::confirmarReserv
 $routes->get('administrador', 'AdministradorController::index');
 $routes->get('administrador/alquileres', 'AlquileresController::listarAlquileresAdmin');
 // Gestión de Clientes
-$routes->get('usuarios', 'UsuariosController::index');
-$routes->get('usuarios/editar/(:num)', 'UsuariosController::editar/$1');
-$routes->post('usuarios/actualizar/(:num)', 'UsuariosController::actualizar/$1');
-$routes->get('usuarios/eliminar/(:num)', 'UsuariosController::eliminar/$1');
+$routes->get('usuarios', 'AdministradorController::listarUsuarios');
+$routes->get('usuarios/editar/(:num)', 'AdministradorController::editarUsuario/$1');
+$routes->post('usuarios/actualizar/(:num)', 'AdministradorController::actualizarUsuario/$1');
+$routes->get('usuarios/eliminar/(:num)', 'AdministradorController::eliminarUsuario/$1');
 // Gestión de Vehículos 
 $routes->get('vehiculos', 'VehiculosController::index');
 $routes->get('vehiculos/new', 'VehiculosController::new');
@@ -50,8 +50,11 @@ $routes->post('vehiculos/update/(:num)', 'VehiculosController::update/$1');
 $routes->get('vehiculos/delete/(:num)', 'VehiculosController::delete/$1');
 $routes->get('vehiculos/(:num)', 'VehiculosController::show/$1');
 
-//$routes->get('mis-alquileres/resumen/(:num)', 'AlquileresController::verResumen/$1');
-// Alquileres y Devoluciones
-// $routes->get('admin/alquileres', 'AlquileresController::index');
-// $routes->post('admin/alquileres/aprobar/(:num)', 'AlquileresController::aprobar/$1');
-// $routes->post('admin/alquileres/devolucion/(:num)', 'AlquileresController::registrarDevolucion/$1');
+// Alquileres y Devoluciones (Admin)
+$routes->post('administrador/alquileres/aprobar/(:num)', 'AlquileresController::aprobarReserva/$1');
+$routes->post('administrador/alquileres/devolucion/(:num)', 'AlquileresController::devolucionVehiculo/$1');
+$routes->get('administrador/alquileres/activos', 'AlquileresController::listarAlquileresActivos');
+
+// Consultas Cruzadas Especiales (Admin)
+$routes->get('administrador/vehiculos/clientes/(:num)', 'VehiculosController::mostrarClientes/$1');
+$routes->get('administrador/usuarios/vehiculos/(:num)', 'AdministradorController::mostrarVehiculos/$1');

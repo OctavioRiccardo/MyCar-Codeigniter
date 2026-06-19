@@ -94,13 +94,19 @@
                                     </td>
                                     <td class="has-text-centered vertical-center">
                                         <div class="buttons is-centered are-small">
+                                            <a href="<?= site_url('administrador/usuarios/vehiculos/'.$user['id_usuario']) ?>" class="button is-info is-light has-text-weight-bold" title="Historial de vehículos alquilados">
+                                                <span class="icon is-small">
+                                                    <i class="fa-solid fa-car-side"></i>
+                                                </span>
+                                                <span>Historial</span>
+                                            </a>
                                             <a href="<?= site_url('usuarios/editar/'.$user['id_usuario']) ?>" class="button is-warning is-light has-text-weight-bold">
                                                 <span class="icon is-small">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </span>
                                                 <span>Editar</span>
                                             </a>
-                                            <a href="<?= site_url('usuarios/eliminar/'.$user['id_usuario']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="return confirm('¿Seguro que desea dar de baja lógica a este cliente?')">
+                                            <a href="<?= site_url('usuarios/eliminar/'.$user['id_usuario']) ?>" class="button is-danger is-light has-text-weight-bold" onclick="showDeleteModal(event, this, '¿Seguro que desea dar de baja lógica a este cliente? El usuario ya no podrá iniciar sesión.')">
                                                 <span class="icon is-small">
                                                     <i class="fa-solid fa-user-slash"></i>
                                                 </span>
@@ -134,5 +140,45 @@
         vertical-align: middle;
     }
 </style>
+
+<!-- Modal de Confirmación de Baja Bulma -->
+<div class="modal" id="delete-confirm-modal">
+    <div class="modal-background" onclick="closeDeleteModal()"></div>
+    <div class="modal-card" style="max-width: 450px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xl);">
+        <header class="modal-card-head has-background-danger-light" style="border-bottom: 1px solid var(--red-100);">
+            <p class="modal-card-title has-text-danger-dark has-text-weight-bold" style="font-family: var(--font-sans); font-size: 1.15rem;">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>Confirmar Baja
+            </p>
+            <button class="delete" aria-label="close" onclick="closeDeleteModal()"></button>
+        </header>
+        <section class="modal-card-body" style="padding: 24px;">
+            <p id="delete-modal-text" class="has-text-grey-darker" style="font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.5;"></p>
+        </section>
+        <footer class="modal-card-foot" style="justify-content: flex-end; gap: 10px; background-color: var(--slate-50); border-top: 1px solid var(--slate-200); padding: 15px 24px;">
+            <button class="button" onclick="closeDeleteModal()" style="font-family: var(--font-sans); border-radius: var(--radius-md); font-weight: 600;">Cancelar</button>
+            <a class="button is-danger has-text-weight-bold" id="delete-modal-confirm-btn" href="#" style="font-family: var(--font-sans); border-radius: var(--radius-md);">Confirmar Baja</a>
+        </footer>
+    </div>
+</div>
+
+<script>
+function showDeleteModal(event, element, message) {
+    event.preventDefault();
+    const confirmBtn = document.getElementById('delete-modal-confirm-btn');
+    const modalText = document.getElementById('delete-modal-text');
+    const modal = document.getElementById('delete-confirm-modal');
+    
+    confirmBtn.href = element.href;
+    if (message) {
+        modalText.textContent = message;
+    }
+    modal.classList.add('is-active');
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('delete-confirm-modal');
+    modal.classList.remove('is-active');
+}
+</script>
 
 <?php echo view('layout/footer'); ?>

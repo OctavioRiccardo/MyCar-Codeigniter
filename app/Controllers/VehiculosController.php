@@ -220,4 +220,49 @@ class VehiculosController extends Controller
 
         return view('Vistas_Cliente/cliente_detalle_vehiculo', $data);
     }
+
+    /**
+     * Muestra la lista de clientes que han alquilado un vehículo específico.
+     * Restringe el acceso a no-administradores.
+     * 
+     * @param int|string $idVehiculo ID del vehículo.
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws \CodeIgniter\Exceptions\PageNotFoundException
+     */
+    public function mostrarClientes($idVehiculo)
+    {
+        // Validar privilegios de administrador
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $vehiculo = $this->vehiculosModel->find($idVehiculo);
+
+        if (!$vehiculo) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Vehículo no encontrado');
+        }
+
+        // Instanciar el modelo de alquileres para realizar la consulta
+        $alquileresModel = new \App\Models\AlquileresModel();
+        $clientes = $alquileresModel
+            ->select('
+                usuarios.id_usuario,
+                usuarios.nombre_usuario,
+                usuarios.apellido_usuario,
+                usuarios.telefono,
+                usuarios.direccion,
+                alquileres.fecha_desde,
+                alquileres.fecha_hasta,
+                alquileres.estado
+            ')
+            ->join('usuarios', 'usuarios.id_usuario = alquileres.id_usuario')
+            ->where('alquileres.id_vehiculo', $idVehiculo)
+            ->orderBy('alquileres.fecha_desde', 'DESC')
+            ->findAll();
+
+        $data['vehiculo'] = $vehiculo;
+        $data['clientes'] = $clientes;
+
+        return view('Vistas_Administrador/administrador_vehiculo_clientes', $data);
+    }
 }

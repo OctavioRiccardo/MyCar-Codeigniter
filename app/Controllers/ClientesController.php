@@ -75,6 +75,7 @@ class ClientesController extends BaseController
             'id_vehiculo'   => 'required|is_natural_no_zero',
             'fecha_desde'   => 'required|valid_date[Y-m-d]',
             'cantidad_dias' => 'required|is_natural_no_zero|greater_than[0]',
+            'metodopago'    => 'required|in_list[efectivo,tarjeta,transferencia]',
         ];
 
         if (!$this->validate($rules)) {
@@ -86,6 +87,7 @@ class ClientesController extends BaseController
         $id_vehiculo = $this->request->getPost('id_vehiculo');
         $fecha_desde = $this->request->getPost('fecha_desde');
         $cantidad_dias = (int) $this->request->getPost('cantidad_dias');
+        $metodopago = $this->request->getPost('metodopago');
 
         // Validar que la fecha de reserva no sea del pasado
         $hoy = date('Y-m-d');
@@ -115,7 +117,8 @@ class ClientesController extends BaseController
             'fecha_desde'   => $fecha_desde,
             'cantidad_dias' => $cantidad_dias,
             'fecha_hasta'   => $fecha_hasta,
-            'precio_total'  => $precio_total
+            'precio_total'  => $precio_total,
+            'metodopago'    => $metodopago
         ]);
 
         return redirect()->to('cliente/resumen');
@@ -183,7 +186,8 @@ class ClientesController extends BaseController
             'fecha_hasta'   => $temp['fecha_hasta'],
             'id_vehiculo'   => $temp['id_vehiculo'],
             'id_usuario'    => session()->get('id_usuario'),
-            'estado'        => 'reserva'
+            'estado'        => 'reserva',
+            'metodopago'    => $temp['metodopago'] ?? 'efectivo'
         ];
 
         if ($this->alquileresModel->insert($alquilerDatos)) {

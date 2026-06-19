@@ -217,4 +217,101 @@ class AlquileresController extends Controller
             $data
         );
     }
+
+    /**
+     * Aprueba una reserva pasándola al estado de 'alquiler' activo.
+     * Restringe el acceso a no-administradores.
+     * 
+     * @param int|string $idAlquiler ID del alquiler/reserva.
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function aprobarReserva($idAlquiler)
+    {
+        // Validar privilegios de administrador
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('error', 'Reserva no encontrada.');
+        }
+
+        // Cambiar el estado a 'alquiler'
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'alquiler'
+        ]);
+
+        return redirect()->back()->with('success', 'La reserva ha sido aprobada e iniciada como alquiler activo.');
+    }
+
+    /**
+     * Registra la devolución de un vehículo al finalizar el alquiler.
+     * Cambia el estado a 'devuelto' y vuelve a habilitar la disponibilidad del auto.
+     * Restringe el acceso a no-administradores.
+     * 
+     * @param int|string $idAlquiler ID del alquiler.
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function devolucionVehiculo($idAlquiler)
+    {
+        // Validar privilegios de administrador
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('error', 'Registro de alquiler no encontrado.');
+        }
+
+        // Cambiar el estado a 'devuelto'
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'devuelto'
+        ]);
+
+        // Cambiar disponibilidad del vehículo a 'disponible'
+        $this->vehiculosModel->update($alquiler['id_vehiculo'], [
+            'disponibilidad' => 'disponible'
+        ]);
+
+        return redirect()->back()->with('success', 'El vehículo ha sido devuelto con éxito y puesto en disponibilidad.');
+    }
+
+    /**
+     * Muestra el listado de vehículos actualmente alquilados con los datos del cliente que lo ha alquilado.
+     * Restringe el acceso a no-administradores.
+     * 
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     */
+    public function listarAlquileresActivos()
+    {
+        // Validar privilegios de administrador
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        // Obtener solo alquileres activos ('alquiler')
+        $alquileresActivos = $this->alquileresModel
+            ->select('
+                alquileres.*,
+                vehiculos.marca,
+                vehiculos.modelo,
+                vehiculos.tipo_vehiculo,
+                usuarios.nombre_usuario,
+                usuarios.apellido_usuario,
+                usuarios.telefono
+            ')
+            ->join('vehiculos', 'vehiculos.id_vehiculo = alquileres.id_vehiculo')
+            ->join('usuarios', 'usuarios.id_usuario = alquileres.id_usuario')
+            ->where('alquileres.estado', 'alquiler')
+            ->orderBy('alquileres.id_alquiler', 'DESC')
+            ->findAll();
+
+        $data['alquileres'] = $alquileresActivos;
+
+        return view('Vistas_Administrador/administrador_alquileres_activos', $data);
+    }
 }
