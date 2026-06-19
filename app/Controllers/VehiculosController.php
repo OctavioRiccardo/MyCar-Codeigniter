@@ -5,57 +5,30 @@ namespace App\Controllers;
 use App\Models\VehiculosModel;
 use CodeIgniter\Controller;
 
-/**
- * Controlador de Vehículos (Flota).
- * Administra el catálogo público de vehículos y el ABM (Alta, Baja, Modificación)
- * de la flota desde el panel de administración.
- */
 class VehiculosController extends Controller
 {
-    /**
-     * @var VehiculosModel Modelo para interactuar con la tabla de vehículos.
-     */
     protected $vehiculosModel;
 
-    /**
-     * Constructor del controlador. Inicializa el modelo de vehículos.
-     */
     public function __construct()
     {
         $this->vehiculosModel = new VehiculosModel();
     }
 
-    /**
-     * Lista todos los vehículos. Redirige a la vista administrativa o
-     * de inicio pública dependiendo del rol del usuario autenticado.
-     * 
-     * @return string
-     */
+    // Listado de vehículos
     public function index()
     {
-        // Obtener todos los vehículos registrados
         $data['vehiculos'] = $this->vehiculosModel->findAll();
 
-        // Si es administrador, mostrar el listado administrativo
         if (session()->get('logueado') && session()->get('rol') === 'administrador') {
             return view('Vistas_Administrador/administrador_vehiculos_lista', $data);
         }
 
-        // De lo contrario (cliente o visitante), mostrar la vista común del catálogo
         return view('Vistas_Comunes/inicio', $data);
     }
 
-    /**
-     * Muestra la ficha técnica detallada de un vehículo específico en el panel administrativo.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @param int|string|null $id ID del vehículo.
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Ficha del vehículo (Admin)
     public function mostrar($id = null)
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
@@ -71,15 +44,9 @@ class VehiculosController extends Controller
         return view('Vistas_Administrador/administrador_vehiculos_mostrar', $data);
     }
 
-    /**
-     * Muestra el formulario para registrar un nuevo vehículo.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     */
+    // Crear vehículo (Formulario)
     public function crear()
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
@@ -87,20 +54,13 @@ class VehiculosController extends Controller
         return view('Vistas_Administrador/administrador_vehiculos_crear');
     }
 
-    /**
-     * Procesa y valida el envío del formulario para crear e insertar un nuevo vehículo.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @return \CodeIgniter\HTTP\RedirectResponse
-     */
+    // Guardar nuevo vehículo
     public function guardar()
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
 
-        // Guardar la entidad en base de datos
         $this->vehiculosModel->save([
             'tipo_vehiculo'       => $this->request->getPost('tipo_vehiculo'),
             'imagen'              => $this->request->getPost('imagen'),
@@ -117,17 +77,9 @@ class VehiculosController extends Controller
         return redirect()->to('/vehiculos');
     }
 
-    /**
-     * Muestra el formulario de edición de datos de un vehículo específico.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @param int|string|null $id ID del vehículo a editar.
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Editar vehículo (Formulario)
     public function editar($id = null)
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
@@ -143,21 +95,13 @@ class VehiculosController extends Controller
         return view('Vistas_Administrador/administrador_vehiculos_editar', $data);
     }
 
-    /**
-     * Procesa y valida el envío del formulario para actualizar un vehículo existente.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @param int|string|null $id ID del vehículo a actualizar.
-     * @return \CodeIgniter\HTTP\RedirectResponse
-     */
+    // Actualizar datos del vehículo
     public function actualizar($id = null)
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
 
-        // Actualizar datos del registro
         $this->vehiculosModel->update($id, [
             'tipo_vehiculo'       => $this->request->getPost('tipo_vehiculo'),
             'imagen'              => $this->request->getPost('imagen'),
@@ -174,17 +118,9 @@ class VehiculosController extends Controller
         return redirect()->to('/vehiculos');
     }
 
-    /**
-     * Da de baja lógica (Soft Delete) a un vehículo en el sistema.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @param int|string|null $id ID del vehículo a eliminar.
-     * @return \CodeIgniter\HTTP\RedirectResponse
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Baja lógica de vehículo
     public function eliminar($id = null)
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
@@ -195,19 +131,12 @@ class VehiculosController extends Controller
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Vehículo no encontrado');
         }
 
-        // Soft Delete (baja lógica) del vehículo
         $this->vehiculosModel->delete($id);
 
         return redirect()->to('/vehiculos');
     }
 
-    /**
-     * Muestra la ficha de detalles de un vehículo orientada a clientes e invitados públicos.
-     * 
-     * @param int|string|null $id ID del vehículo.
-     * @return string
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Detalle del vehículo para el cliente
     public function detalle($id = null)
     {
         $vehiculo = $this->vehiculosModel->find($id);
@@ -221,17 +150,9 @@ class VehiculosController extends Controller
         return view('Vistas_Cliente/cliente_detalle_vehiculo', $data);
     }
 
-    /**
-     * Muestra la lista de clientes que han alquilado un vehículo específico.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @param int|string $idVehiculo ID del vehículo.
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Historial de clientes de un vehículo
     public function mostrarClientes($idVehiculo)
     {
-        // Validar privilegios de administrador
         if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
@@ -242,7 +163,6 @@ class VehiculosController extends Controller
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('Vehículo no encontrado');
         }
 
-        // Instanciar el modelo de alquileres para realizar la consulta
         $alquileresModel = new \App\Models\AlquileresModel();
         $clientes = $alquileresModel
             ->select('
