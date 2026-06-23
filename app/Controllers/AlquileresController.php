@@ -17,7 +17,7 @@ class AlquileresController extends Controller
         $this->vehiculosModel = new VehiculosModel();
     }
 
-    // Guarda reserva directa (Legacy/General)
+    // Guarda reserva directa
     public function guardarAlquiler()
     {
         $fechaDesde = $this->request->getPost('fecha_desde');
