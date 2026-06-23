@@ -70,8 +70,13 @@ ALTER TABLE `alquileres`
 --
 
 INSERT INTO `vehiculos` (`id_vehiculo`, `tipo_vehiculo`, `imagen`, `marca`, `modelo`, `anio`, `numero_plazas`, `motor`, `kilometraje`, `precio_alquiler_dia`, `disponibilidad`, `deleted_at`) VALUES
-(1, 'auto', 'assets/img/auto_corolla.png', 'Toyota', 'Corolla', 2022, 5, '1.8L', 15000, 45000, 'disponible', NULL),
+(1, 'auto', 'assets/img/toyotatrueno.png', 'Toyota', 'Sprinter Trueno AE86', 1986, 5, '1.6L 4A-GE', 15000, 45000, 'disponible', NULL),
 (2, 'moto', 'assets/img/moto_honda.png', 'Honda', 'CB500X', 2021, 2, '500cc', 8500, 25000, 'disponible', NULL),
-(3, 'camioneta', 'assets/img/camioneta_hilux.png', 'Toyota', 'Hilux', 2023, 5, '2.8L Diesel', 12000, 60000, 'disponible', NULL);
+(3, 'camioneta', 'assets/img/camioneta_hilux.png', 'Toyota', 'Hilux', 2023, 5, '2.8L Diesel', 12000, 60000, 'disponible', NULL),
+(4, 'auto', 'assets/img/ford_mustang.png', 'Ford', 'Mustang Fastback', 1969, 4, '4.9L V8', 85000, 75000, 'disponible', NULL),
+(5, 'auto', 'assets/img/tesla_models.png', 'Tesla', 'Model S Plaid', 2023, 5, 'Eléctrico', 5000, 95000, 'disponible', NULL),
+(6, 'moto', 'assets/img/harley_fatboy.png', 'Harley-Davidson', 'Fat Boy 114', 2022, 2, '1868cc', 3000, 35000, 'disponible', NULL),
+(7, 'camioneta', 'assets/img/ford_raptor.png', 'Ford', 'F-150 Raptor', 2022, 5, '3.5L V6', 18000, 80000, 'disponible', NULL),
+(8, 'moto', 'assets/img/ducati_panigale.png', 'Ducati', 'Panigale V4', 2023, 1, '1103cc', 1200, 50000, 'disponible', NULL);
 
 COMMIT;
