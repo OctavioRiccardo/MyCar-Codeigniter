@@ -29,6 +29,16 @@
                 </div>
             </div>
 
+            <?php if(session()->getFlashdata('success')): ?>
+                <div class="notification is-success is-light">
+                    <button class="delete" onclick="this.parentElement.remove()"></button>
+                    <span class="icon mr-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </span>
+                    <?= session()->getFlashdata('success') ?>
+                </div>
+            <?php endif; ?>
+
             <div class="table-container">
                 <table class="table is-hoverable is-striped is-fullwidth">
                     <thead>
@@ -118,13 +128,22 @@
 
                                     <td class="has-text-centered vertical-center">
                                         <?php if($alquiler['estado'] == 'reserva'): ?>
-                                            <form action="<?= site_url('administrador/alquileres/aprobar/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
-                                                <?= csrf_field() ?>
-                                                <button type="submit" class="button is-success is-small has-text-weight-bold">
-                                                    <span class="icon is-small"><i class="fa-solid fa-check"></i></span>
-                                                    <span>Aprobar</span>
-                                                </button>
-                                            </form>
+                                            <div class="buttons is-centered" style="gap: 5px;">
+                                                <form action="<?= site_url('administrador/alquileres/aprobar/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
+                                                    <?= csrf_field() ?>
+                                                    <button type="submit" class="button is-success is-small has-text-weight-bold">
+                                                        <span class="icon is-small"><i class="fa-solid fa-check"></i></span>
+                                                        <span>Aprobar</span>
+                                                    </button>
+                                                </form>
+                                                <form action="<?= site_url('administrador/alquileres/rechazar/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
+                                                    <?= csrf_field() ?>
+                                                    <button type="submit" class="button is-danger is-small has-text-weight-bold">
+                                                        <span class="icon is-small"><i class="fa-solid fa-xmark"></i></span>
+                                                        <span>Rechazar</span>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         <?php elseif($alquiler['estado'] == 'alquiler'): ?>
                                             <form action="<?= site_url('administrador/alquileres/devolucion/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
                                                 <?= csrf_field() ?>

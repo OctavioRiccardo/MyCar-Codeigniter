@@ -52,6 +52,7 @@ $routes->get('vehiculos/(:num)', 'VehiculosController::mostrar/$1');
 
 // Alquileres y Devoluciones (Admin)
 $routes->post('administrador/alquileres/aprobar/(:num)', 'AlquileresController::aprobarReserva/$1');
+$routes->post('administrador/alquileres/rechazar/(:num)', 'AlquileresController::rechazarReserva/$1');
 $routes->post('administrador/alquileres/devolucion/(:num)', 'AlquileresController::devolucionVehiculo/$1');
 $routes->get('administrador/alquileres/activos', 'AlquileresController::listarAlquileresActivos');
 

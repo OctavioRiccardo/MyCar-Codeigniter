@@ -159,6 +159,34 @@ class AlquileresController extends Controller
         return redirect()->back()->with('success', 'Reserva aprobada.');
     }
 
+    // Rechazar una reserva (Admin)
+    public function rechazarReserva($idAlquiler)
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('toast_warning', 'Reserva no encontrada.');
+        }
+
+        // 1. Liberar el vehículo
+        $this->vehiculosModel->update($alquiler['id_vehiculo'], [
+            'disponibilidad' => 'disponible'
+        ]);
+
+        // 2. Marcar la reserva como rechazada
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'rechazado'
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Reserva rechazada con éxito.')
+            ->with('toast_success', 'Reserva rechazada con éxito. El vehículo vuelve a estar disponible.');
+    }
+
     // Registrar devolución de vehículo (Admin)
     public function devolucionVehiculo($idAlquiler)
     {
