@@ -18,10 +18,26 @@
                             <h2 class="subtitle is-6 has-text-grey" style="margin: 5px 0 0 0;">
                                 Gestión completa, historial y estados de alquileres realizados en la plataforma.
                             </h2>
+                            <div class="mt-4">
+                                <a href="<?= site_url('administrador/alquileres/activos') ?>" class="button is-info is-outlined is-small has-text-weight-bold">
+                                    <span class="icon"><i class="fa-solid fa-car-side"></i></span>
+                                    <span>Ver Vehículos Actualmente Alquilados</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <?php if(session()->getFlashdata('success')): ?>
+                <div class="notification is-success is-light">
+                    <button class="delete" onclick="this.parentElement.remove()"></button>
+                    <span class="icon mr-2">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </span>
+                    <?= session()->getFlashdata('success') ?>
+                </div>
+            <?php endif; ?>
 
             <div class="table-container">
                 <table class="table is-hoverable is-striped is-fullwidth">
@@ -36,6 +52,7 @@
                             <th class="has-text-centered">Días</th>
                             <th>Método Pago</th>
                             <th class="has-text-centered">Estado</th>
+                            <th class="has-text-centered">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,11 +125,42 @@
                                             </span>
                                         <?php endif; ?>
                                     </td>
+
+                                    <td class="has-text-centered vertical-center">
+                                        <?php if($alquiler['estado'] == 'reserva'): ?>
+                                            <div class="buttons is-centered" style="gap: 5px;">
+                                                <form action="<?= site_url('administrador/alquileres/aprobar/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
+                                                    <?= csrf_field() ?>
+                                                    <button type="submit" class="button is-success is-small has-text-weight-bold">
+                                                        <span class="icon is-small"><i class="fa-solid fa-check"></i></span>
+                                                        <span>Aprobar</span>
+                                                    </button>
+                                                </form>
+                                                <form action="<?= site_url('administrador/alquileres/rechazar/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
+                                                    <?= csrf_field() ?>
+                                                    <button type="submit" class="button is-danger is-small has-text-weight-bold">
+                                                        <span class="icon is-small"><i class="fa-solid fa-xmark"></i></span>
+                                                        <span>Rechazar</span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        <?php elseif($alquiler['estado'] == 'alquiler'): ?>
+                                            <form action="<?= site_url('administrador/alquileres/devolucion/'.$alquiler['id_alquiler']) ?>" method="POST" style="display:inline;">
+                                                <?= csrf_field() ?>
+                                                <button type="submit" class="button is-danger is-small has-text-weight-bold" onclick="return confirm('¿Confirmar la devolución de este vehículo?')">
+                                                    <span class="icon is-small"><i class="fa-solid fa-rotate-left"></i></span>
+                                                    <span>Devolución</span>
+                                                </button>
+                                            </form>
+                                        <?php else: ?>
+                                            <span class="has-text-grey-light">-</span>
+                                        <?php endif; ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="9" class="has-text-centered has-text-grey-light py-6">
+                                <td colspan="10" class="has-text-centered has-text-grey-light py-6">
                                     <span class="icon is-large block mb-2">
                                         <i class="fa-solid fa-receipt fa-2x"></i>
                                     </span>

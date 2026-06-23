@@ -10,7 +10,7 @@
         <h1 class="form-title">Registrar Vehículo</h1>
         <p class="form-subtitle">Agrega un nuevo vehículo a la flota de alquileres</p>
 
-        <form action="<?= site_url('vehiculos/create') ?>" method="post">
+        <form action="<?= site_url('vehiculos/guardar') ?>" method="post">
             
             <div class="form-grid">
                 

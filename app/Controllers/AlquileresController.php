@@ -6,38 +6,18 @@ use App\Models\AlquileresModel;
 use App\Models\VehiculosModel;
 use CodeIgniter\Controller;
 
-/**
- * Controlador de Alquileres y Reservas.
- * Permite a los clientes gestionar sus solicitudes de alquiler y resúmenes de pago,
- * y permite al administrador listar y monitorear todos los alquileres del sistema.
- */
 class AlquileresController extends Controller
 {
-    /**
-     * @var AlquileresModel Modelo para interactuar con la tabla de alquileres.
-     */
     protected $alquileresModel;
-
-    /**
-     * @var VehiculosModel Modelo para interactuar con la tabla de vehículos.
-     */
     protected $vehiculosModel;
 
-    /**
-     * Constructor del controlador. Inicializa los modelos de alquileres y vehículos.
-     */
     public function __construct()
     {
         $this->alquileresModel = new AlquileresModel();
         $this->vehiculosModel = new VehiculosModel();
     }
 
-    /**
-     * Procesa la solicitud de alquiler de un vehículo por método POST.
-     * Calcula la fecha de finalización, persiste la reserva y actualiza la disponibilidad del vehículo.
-     * 
-     * @return \CodeIgniter\HTTP\RedirectResponse
-     */
+    // Guarda reserva directa
     public function guardarAlquiler()
     {
         $fechaDesde = $this->request->getPost('fecha_desde');
@@ -47,21 +27,12 @@ class AlquileresController extends Controller
 
         $idUsuario = session()->get('id_usuario');
 
-        // Validar que el usuario esté logueado
         if (!$idUsuario) {
-            return redirect()->back()->with(
-                'error',
-                'Debe iniciar sesión para alquilar un vehículo.'
-            );
+            return redirect()->back()->with('error', 'Debe iniciar sesión.');
         }
 
-        // Calcular fecha de finalización basada en cantidad de días de alquiler
-        $fechaHasta = date(
-            'Y-m-d',
-            strtotime($fechaDesde . ' + ' . ($cantidadDias - 1) . ' days')
-        );
+        $fechaHasta = date('Y-m-d', strtotime($fechaDesde . ' + ' . ($cantidadDias - 1) . ' days'));
 
-        // Guardar registro de alquiler con estado inicial 'reserva'
         $this->alquileresModel->save([
             'fecha_desde' => $fechaDesde,
             'cantidad_dias' => $cantidadDias,
@@ -72,32 +43,22 @@ class AlquileresController extends Controller
             'estado' => 'reserva'
         ]);
 
-        // Cambiar la disponibilidad del vehículo a 'no_disponible'
         $this->vehiculosModel->update($idVehiculo, [
             'disponibilidad' => 'no_disponible'
         ]);
 
-        return redirect()->to('/mis-alquileres')->with(
-            'success',
-            'Alquiler realizado correctamente.'
-        );
+        return redirect()->to('/mis-alquileres')->with('success', 'Alquiler realizado correctamente.');
     }
 
-    /**
-     * Muestra el listado histórico de reservas y alquileres del cliente autenticado.
-     * 
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     */
+    // Lista de alquileres del cliente
     public function mostrarAlquileres()
     {
         $idUsuario = session()->get('id_usuario');
 
-        // Restringir acceso solo a usuarios logueados
         if (!$idUsuario) {
             return redirect()->to('/login');
         }
 
-        // Obtener alquileres con información unida (JOIN) del vehículo
         $alquileres = $this->alquileresModel
             ->select('
                 alquileres.*,
@@ -107,29 +68,17 @@ class AlquileresController extends Controller
                 vehiculos.tipo_vehiculo,
                 vehiculos.precio_alquiler_dia
             ')
-            ->join(
-                'vehiculos',
-                'vehiculos.id_vehiculo = alquileres.id_vehiculo'
-            )
+            ->join('vehiculos', 'vehiculos.id_vehiculo = alquileres.id_vehiculo')
             ->where('alquileres.id_usuario', $idUsuario)
             ->orderBy('alquileres.id_alquiler', 'DESC')
             ->findAll();
 
         $data['alquileres'] = $alquileres;
 
-        return view(
-            'Vistas_Cliente/cliente_ver_alquileres',
-            $data
-        );
+        return view('Vistas_Cliente/cliente_ver_alquileres', $data);
     }
 
-    /**
-     * Muestra el resumen detallado de costo, fechas y estado de un alquiler específico para el cliente.
-     * 
-     * @param int|string $idAlquiler ID del alquiler.
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     * @throws \CodeIgniter\Exceptions\PageNotFoundException
-     */
+    // Ver resumen de un alquiler (Cliente)
     public function verResumen($idAlquiler)
     {
         $idUsuario = session()->get('id_usuario');
@@ -138,7 +87,6 @@ class AlquileresController extends Controller
             return redirect()->to('/login');
         }
 
-        // Obtener datos del alquiler específico verificando pertenencia al cliente logueado
         $alquiler = $this->alquileresModel
             ->select('
                 alquileres.*,
@@ -148,10 +96,7 @@ class AlquileresController extends Controller
                 vehiculos.tipo_vehiculo,
                 vehiculos.precio_alquiler_dia
             ')
-            ->join(
-                'vehiculos',
-                'vehiculos.id_vehiculo = alquileres.id_vehiculo'
-            )
+            ->join('vehiculos', 'vehiculos.id_vehiculo = alquileres.id_vehiculo')
             ->where('alquileres.id_alquiler', $idAlquiler)
             ->where('alquileres.id_usuario', $idUsuario)
             ->first();
@@ -160,36 +105,21 @@ class AlquileresController extends Controller
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        // Calcular costo total del servicio (días * precio diario)
         $precioTotal = $alquiler['cantidad_dias'] * $alquiler['precio_alquiler_dia'];
 
         $data['alquiler'] = $alquiler;
         $data['precioTotal'] = $precioTotal;
 
-        return view(
-            'Vistas_Cliente/cliente_ver_resumen',
-            $data
-        );
+        return view('Vistas_Cliente/cliente_ver_resumen', $data);
     }
 
-    /**
-     * Muestra a nivel administrativo todos los alquileres del sistema ordenados cronológicamente.
-     * Restringe el acceso a no-administradores.
-     * 
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
-     */
+    // Listado de alquileres (Admin)
     public function listarAlquileresAdmin()
     {
-        // Validar privilegios de administrador
-        if (!session()->get('logueado')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('rol') != 'administrador') {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
             return redirect()->to('/');
         }
 
-        // Obtener todos los alquileres con datos del vehículo y cliente asociados (JOINs múltiples)
         $alquileres = $this->alquileresModel
             ->select('
                 alquileres.*,
@@ -199,22 +129,113 @@ class AlquileresController extends Controller
                 usuarios.nombre_usuario,
                 usuarios.apellido_usuario
             ')
-            ->join(
-                'vehiculos',
-                'vehiculos.id_vehiculo = alquileres.id_vehiculo'
-            )
-            ->join(
-                'usuarios',
-                'usuarios.id_usuario = alquileres.id_usuario'
-            )
+            ->join('vehiculos', 'vehiculos.id_vehiculo = alquileres.id_vehiculo')
+            ->join('usuarios', 'usuarios.id_usuario = alquileres.id_usuario')
             ->orderBy('alquileres.id_alquiler', 'DESC')
             ->findAll();
 
         $data['alquileres'] = $alquileres;
 
-        return view(
-            'Vistas_Administrador/administrador_alquileres_lista',
-            $data
-        );
+        return view('Vistas_Administrador/administrador_alquileres_lista', $data);
+    }
+
+    // Aprobar una reserva (Admin)
+    public function aprobarReserva($idAlquiler)
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('error', 'Reserva no encontrada.');
+        }
+
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'alquiler'
+        ]);
+
+        return redirect()->back()->with('success', 'Reserva aprobada.');
+    }
+
+    // Rechazar una reserva (Admin)
+    public function rechazarReserva($idAlquiler)
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('toast_warning', 'Reserva no encontrada.');
+        }
+
+        // 1. Liberar el vehículo
+        $this->vehiculosModel->update($alquiler['id_vehiculo'], [
+            'disponibilidad' => 'disponible'
+        ]);
+
+        // 2. Marcar la reserva como rechazada
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'rechazado'
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Reserva rechazada con éxito.')
+            ->with('toast_success', 'Reserva rechazada con éxito. El vehículo vuelve a estar disponible.');
+    }
+
+    // Registrar devolución de vehículo (Admin)
+    public function devolucionVehiculo($idAlquiler)
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquiler = $this->alquileresModel->find($idAlquiler);
+
+        if (!$alquiler) {
+            return redirect()->back()->with('error', 'Registro no encontrado.');
+        }
+
+        $this->alquileresModel->update($idAlquiler, [
+            'estado' => 'devuelto'
+        ]);
+
+        $this->vehiculosModel->update($alquiler['id_vehiculo'], [
+            'disponibilidad' => 'disponible'
+        ]);
+
+        return redirect()->back()->with('success', 'Vehículo devuelto.');
+    }
+
+    // Alquileres activos actuales (Admin)
+    public function listarAlquileresActivos()
+    {
+        if (!session()->get('logueado') || session()->get('rol') !== 'administrador') {
+            return redirect()->to('/');
+        }
+
+        $alquileresActivos = $this->alquileresModel
+            ->select('
+                alquileres.*,
+                vehiculos.marca,
+                vehiculos.modelo,
+                vehiculos.tipo_vehiculo,
+                usuarios.nombre_usuario,
+                usuarios.apellido_usuario,
+                usuarios.telefono
+            ')
+            ->join('vehiculos', 'vehiculos.id_vehiculo = alquileres.id_vehiculo')
+            ->join('usuarios', 'usuarios.id_usuario = alquileres.id_usuario')
+            ->where('alquileres.estado', 'alquiler')
+            ->orderBy('alquileres.id_alquiler', 'DESC')
+            ->findAll();
+
+        $data['alquileres'] = $alquileresActivos;
+
+        return view('Vistas_Administrador/administrador_alquileres_activos', $data);
     }
 }

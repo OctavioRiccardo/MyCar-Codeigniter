@@ -38,6 +38,10 @@
                         <td>$<?= number_format($vehiculo['precio_alquiler_dia'], 0, ',', '.') ?></td>
                     </tr>
                     <tr>
+                        <th>Método de Pago</th>
+                        <td><span class="tag is-info is-light has-text-weight-semibold" style="text-transform: capitalize; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; background-color: var(--slate-100); color: var(--slate-700); border: 1px solid var(--slate-200); font-family: var(--font-sans);"><i class="fa-solid fa-credit-card mr-1"></i><?= ucfirst(esc($reserva['metodopago'] ?? 'efectivo')) ?></span></td>
+                    </tr>
+                    <tr>
                         <th>Precio Total Est.</th>
                         <td class="precio-destacado">
                             <strong>$<?= number_format($reserva['precio_total'], 0, ',', '.') ?></strong>
